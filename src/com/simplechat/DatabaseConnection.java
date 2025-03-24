@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DatabaseConnection {
     private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=ChatDonGian;encrypt=true;trustServerCertificate=true";
     private static final String USER = "sa"; // Thay bằng username SQL Server
-    private static final String PASSWORD = "Htq@12a2"; // Thay bằng mật khẩu SQL Server
+    private static final String PASSWORD = "123456789"; // Thay bằng mật khẩu SQL Server
 
     public static Connection getConnection() {
         Connection connection = null;

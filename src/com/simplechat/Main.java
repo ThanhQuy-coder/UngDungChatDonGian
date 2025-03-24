@@ -1,4 +1,4 @@
-package com.simplechat;
+package src.com.simplechat;
 
 import src.com.simplechat.DatabaseConnection;
 import java.sql.Connection;
