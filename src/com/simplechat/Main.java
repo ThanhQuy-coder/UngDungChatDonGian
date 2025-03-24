@@ -1,7 +1,10 @@
 package com.simplechat;
 
-public class Main{
-    public static void main(String[] args){
-        System.out.print("Hello world");
+import src.com.simplechat.DatabaseConnection;
+import java.sql.Connection;
+
+public class Main {
+    public static void main(String[] args) {
+        DatabaseConnection.getConnection();
     }
 }
