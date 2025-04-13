@@ -1,8 +1,0 @@
-<component name="libraryTable">
-  <library name="Maven: com.microsoft.sqlserver:mssql-jdbc:12.2.0.jre11" type="java-imported" external-system-id="Maven">
-    <properties groupId="com.microsoft.sqlserver" artifactId="mssql-jdbc" version="12.2.0.jre11" baseVersion="12.2.0.jre11" />
-    <CLASSES />
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

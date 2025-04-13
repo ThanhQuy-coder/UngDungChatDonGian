@@ -1,0 +1,8 @@
+com\simplechat\database\Database.class
+com\simplechat\models\ChatSession.class
+com\simplechat\models\User.class
+com\simplechat\MainApp.class
+com\simplechat\models\Message.class
+com\simplechat\controllers\SignInController.class
+com\simplechat\controllers\SignUpController.class
+com\simplechat\models\RealTimeService.class
