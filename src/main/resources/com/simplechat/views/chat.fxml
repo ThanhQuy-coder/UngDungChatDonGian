@@ -1,88 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.geometry.Insets?>
-<?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.simplechat.controllers.ChatController">
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.simplechat.controllers.ChatController">
 
-    <Pane prefWidth="900" prefHeight="600" style="-fx-background-color: #f5f5f5;">
+    <Pane prefHeight="600" prefWidth="900" style="-fx-background-color: #f5f5f5;">
         <!-- Header -->
-        <HBox prefWidth="900" prefHeight="60" style="-fx-background-color: #3949AB;">
-            <Label text="Chat Application" textFill="white" style="-fx-font-size: 24px;">
+        <HBox prefHeight="60" prefWidth="900" style="-fx-background-color: #3949AB;">
+            <Label style="-fx-font-size: 24px;" text="Chat Application" textFill="white">
                 <padding>
-                    <Insets left="20" top="15"/>
+                    <Insets left="20" top="15" />
                 </padding>
                 <effect>
-                    <DropShadow radius="3" color="#00000080"/>
+                    <DropShadow color="#00000080" radius="3" />
                 </effect>
             </Label>
 
             <!-- User info and logout -->
             <HBox alignment="CENTER_RIGHT" spacing="10" HBox.hgrow="ALWAYS">
-                <Label fx:id="usernameLabel" textFill="white" style="-fx-font-size: 16px;"/>
-                <Button text="Logout" onAction="#handleLogout"
-                        style="-fx-background-color: #e53935; -fx-text-fill: white;"/>
+                <Label fx:id="usernameLabel" style="-fx-font-size: 16px;" textFill="white" />
+                <Button onAction="#handleLogout" style="-fx-background-color: #e53935; -fx-text-fill: white;" text="Logout" />
                 <padding>
-                    <Insets right="20"/>
+                    <Insets right="20" />
                 </padding>
             </HBox>
         </HBox>
 
         <!-- Main Content -->
-        <BorderPane layoutY="60" prefWidth="900" prefHeight="540">
+        <BorderPane layoutY="60" prefHeight="540" prefWidth="900">
             <!-- Left - Contacts List -->
             <left>
                 <VBox prefWidth="250" style="-fx-background-color: #e3f2fd;">
-                    <Label text="Contacts" style="-fx-font-size: 18px; -fx-text-fill: #1A237E; -fx-padding: 10;">
-                        <effect>
-                            <DropShadow radius="2" color="#00000040"/>
-                        </effect>
-                    </Label>
 
-                    <ListView fx:id="contactsList" style="-fx-background-color: transparent; -fx-border-width: 0;">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="John Doe (online)"/>
-                                <String fx:value="Jane Smith"/>
-                                <String fx:value="Mike Johnson (online)"/>
-                                <String fx:value="Sarah Williams"/>
-                                <String fx:value="David Brown"/>
-                            </FXCollections>
-                        </items>
-                    </ListView>
+                    <!-- Tabs: Contacts | Requests -->
+                    <HBox spacing="10" style="-fx-padding: 10;">
+                        <Button fx:id="contactsTabBtn" onAction="#showContactsTab"
+                                style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-border-color: transparent transparent #1A237E transparent; -fx-border-width: 0 0 2 0;"
+                                text="Contacts" />
+                        <Button fx:id="requestsTabBtn" onAction="#showRequestsTab"
+                                style="-fx-background-color: transparent; -fx-font-weight: normal; -fx-border-color: transparent; -fx-border-width: 0 0 2 0;"
+                                text="Requests" />
+                    </HBox>
+
+                    <!-- StackPane để chuyển đổi giữa 2 danh sách -->
+                    <StackPane fx:id="tabContent" VBox.vgrow="ALWAYS">
+
+                        <!-- Contacts -->
+                        <VBox fx:id="contactsPane">
+                            <ListView fx:id="contactsList" style="-fx-background-color: transparent; -fx-border-width: 0;">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="John Doe (online)" />
+                                        <String fx:value="Jane Smith" />
+                                        <String fx:value="Mike Johnson (online)" />
+                                        <String fx:value="Sarah Williams" />
+                                        <String fx:value="David Brown" />
+                                    </FXCollections>
+                                </items>
+                            </ListView>
+                        </VBox>
+
+                        <!-- Requests -->
+                        <VBox fx:id="requestsPane" visible="false">
+                            <TextField fx:id="searchField" promptText="Nhập email..." style="-fx-padding: 0 10 10 10;" />
+                            <ListView fx:id="requestsList" style="-fx-background-color: transparent; -fx-border-width: 0;">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Anna Taylor - accept/decline" />
+                                        <String fx:value="Chris Evans - accept/decline" />
+                                    </FXCollections>
+                                </items>
+                            </ListView>
+                        </VBox>
+
+                    </StackPane>
                 </VBox>
             </left>
+
+
 
             <!-- Center - Chat Area -->
             <center>
                 <VBox style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 1;">
                     <!-- Chat header -->
                     <HBox style="-fx-background-color: #bbdefb; -fx-padding: 10;">
-                        <Label fx:id="currentChatLabel" text="Select a contact to chat"
-                               style="-fx-font-size: 16px; -fx-text-fill: #1A237E;"/>
+                        <Label fx:id="currentChatLabel" style="-fx-font-size: 16px; -fx-text-fill: #1A237E;" text="Select a contact to chat" />
                     </HBox>
 
                     <!-- Messages area -->
                     <ListView fx:id="messagesList" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="Welcome to the chat!"/>
+                                <String fx:value="Welcome to the chat!" />
                             </FXCollections>
                         </items>
                     </ListView>
 
                     <!-- Message input -->
                     <HBox style="-fx-padding: 10; -fx-spacing: 10; -fx-background-color: #f5f5f5;">
-                        <TextField fx:id="messageInput" promptText="Type your message here..." HBox.hgrow="ALWAYS"/>
-                        <Button text="Send" onAction="#handleSendMessage"
-                                style="-fx-background-color: #3949AB; -fx-text-fill: white;"/>
+                        <TextField fx:id="messageInput" promptText="Type your message here..." HBox.hgrow="ALWAYS" />
+                        <Button onAction="#handleSendMessage" style="-fx-background-color: #3949AB; -fx-text-fill: white;" text="Send" />
                     </HBox>
                 </VBox>
             </center>
@@ -90,21 +122,20 @@
             <!-- Right - User details (optional) -->
             <right>
                 <VBox prefWidth="200" style="-fx-background-color: #e3f2fd; -fx-padding: 10;">
-                    <Label text="My Profile" style="-fx-font-size: 18px; -fx-text-fill: #1A237E;">
+                    <Label style="-fx-font-size: 18px; -fx-text-fill: #1A237E;" text="My Profile">
                         <effect>
-                            <DropShadow radius="2" color="#00000040"/>
+                            <DropShadow color="#00000040" radius="2" />
                         </effect>
                     </Label>
 
-                    <ImageView fitWidth="100" fitHeight="100" preserveRatio="true">
-                        <Image url="@/images/img_8.png"/>
+                    <ImageView fitHeight="100" fitWidth="100" preserveRatio="true">
+                        <Image url="@/images/img_8.png" />
                     </ImageView>
 
-                    <Label fx:id="userProfileName" text="Username" style="-fx-font-size: 16px; -fx-text-fill: #1A237E;"/>
-                    <Label text="Status: Online" style="-fx-font-size: 14px; -fx-text-fill: #4CAF50;"/>
+                    <Label fx:id="userProfileName" style="-fx-font-size: 16px; -fx-text-fill: #1A237E;" text="Username" />
+                    <Label style="-fx-font-size: 14px; -fx-text-fill: #4CAF50;" text="Status: Online" />
 
-                    <Button text="Change Avatar" onAction="#handleChangeAvatar"
-                            style="-fx-background-color: #7986CB; -fx-text-fill: white; -fx-margin-top: 20;"/>
+                    <Button onAction="#handleChangeAvatar" style="-fx-background-color: #7986CB; -fx-text-fill: white; -fx-margin-top: 20;" text="Change Avatar" />
                 </VBox>
             </right>
         </BorderPane>
