@@ -46,7 +46,6 @@
             <!-- Left - Contacts List -->
             <left>
                 <VBox prefWidth="250" style="-fx-background-color: #e3f2fd;">
-
                     <!-- Tabs: Contacts | Requests -->
                     <HBox spacing="10" style="-fx-padding: 10;">
                         <Button fx:id="contactsTabBtn" onAction="#showContactsTab"
@@ -55,11 +54,13 @@
                         <Button fx:id="requestsTabBtn" onAction="#showRequestsTab"
                                 style="-fx-background-color: transparent; -fx-font-weight: normal; -fx-border-color: transparent; -fx-border-width: 0 0 2 0;"
                                 text="Requests" />
+                        <Button fx:id="sentTabBtn" onAction="#showSentTab"
+                                style="-fx-background-color: transparent; -fx-font-weight: normal; -fx-border-color: transparent; -fx-border-width: 0 0 2 0;"
+                                text="Sent" />
                     </HBox>
 
                     <!-- StackPane để chuyển đổi giữa 2 danh sách -->
                     <StackPane fx:id="tabContent" VBox.vgrow="ALWAYS">
-
                         <!-- Contacts -->
                         <VBox fx:id="contactsPane">
                             <ListView fx:id="contactsList" style="-fx-background-color: transparent; -fx-border-width: 0;">
@@ -76,18 +77,17 @@
                         </VBox>
 
                         <!-- Requests -->
-                        <VBox fx:id="requestsPane" visible="false">
-                            <TextField fx:id="searchField" promptText="Nhập email..." style="-fx-padding: 0 10 10 10;" />
-                            <ListView fx:id="requestsList" style="-fx-background-color: transparent; -fx-border-width: 0;">
-                                <items>
-                                    <FXCollections fx:factory="observableArrayList">
-                                        <String fx:value="Anna Taylor - accept/decline" />
-                                        <String fx:value="Chris Evans - accept/decline" />
-                                    </FXCollections>
-                                </items>
-                            </ListView>
+                        <VBox fx:id="requestsPane" visible="false" managed="false">
+                            <Button text="Gửi lời mời kết bạn" onAction="#handleSendFriendRequest"
+                                    style="-fx-background-color: #3949AB; -fx-text-fill: white; -fx-padding: 5 10;"/>
+                            <ListView fx:id="requestsList" style="-fx-background-color: transparent; -fx-border-width: 0;" />
                         </VBox>
 
+                        <!-- Sent -->
+                        <VBox fx:id="sentPane" visible="false" managed="false">
+                            <Label text="Lời mời đã gửi:" style="-fx-padding: 10; -fx-font-weight: bold;" />
+                            <ListView fx:id="sentRequestsList" style="-fx-background-color: transparent; -fx-border-width: 0;" />
+                        </VBox>
                     </StackPane>
                 </VBox>
             </left>
