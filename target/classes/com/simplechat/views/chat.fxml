@@ -14,7 +14,7 @@
 
     <Pane prefWidth="900" prefHeight="600" style="-fx-background-color: #f5f5f5;">
         <!-- Header -->
-        <HBox prefWidth="900" prefHeight="460" style="-fx-background-color: #3949AB;">
+        <HBox prefWidth="900" prefHeight="60" style="-fx-background-color: #3949AB;">
             <Label text="Chat Application" textFill="white" style="-fx-font-size: 24px;">
                 <padding>
                     <Insets left="20" top="15"/>
@@ -37,49 +37,26 @@
 
         <!-- Main Content -->
         <BorderPane layoutY="60" prefWidth="900" prefHeight="540">
-            <!-- Left - Friend Requests and Send Request -->
+            <!-- Left - Contacts List -->
             <left>
-                <VBox prefWidth="250" style="-fx-background-color: #e3f2fd;" spacing="15">
-                    <!-- Friend Requests Section -->
-                    <VBox spacing="10">
-                        <Label text="Friend Requests" style="-fx-font-size: 18px; -fx-text-fill: #1A237E; -fx-padding: 10;">
-                            <effect>
-                                <DropShadow radius="2" color="#00000040"/>
-                            </effect>
-                        </Label>
-                        <ListView fx:id="friendRequestsList" prefHeight="200" style="-fx-background-color: transparent; -fx-border-width: 0;">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <HBox spacing="5" alignment="CENTER_LEFT">
-                                        <Label text="Alice Johnson" style="-fx-font-size: 14px; -fx-text-fill: #1A237E;"/>
-                                        <Button text="Accept" onAction="#handleAcceptFriendRequest"
-                                                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 12px;"/>
-                                        <Button text="Decline" onAction="#handleDeclineFriendRequest"
-                                                style="-fx-background-color: #e53935; -fx-text-fill: white; -fx-font-size: 12px;"/>
-                                    </HBox>
-                                    <HBox spacing="5" alignment="CENTER_LEFT">
-                                        <Label text="Bob Wilson" style="-fx-font-size: 14px; -fx-text-fill: #1A237E;"/>
-                                        <Button text="Accept" onAction="#handleAcceptFriendRequest"
-                                                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 12px;"/>
-                                        <Button text="Decline" onAction="#handleDeclineFriendRequest"
-                                                style="-fx-background-color: #e53935; -fx-text-fill: white; -fx-font-size: 12px;"/>
-                                    </HBox>
-                                </FXCollections>
-                            </items>
-                        </ListView>
-                    </VBox>
+                <VBox prefWidth="250" style="-fx-background-color: #e3f2fd;">
+                    <Label text="Contacts" style="-fx-font-size: 18px; -fx-text-fill: #1A237E; -fx-padding: 10;">
+                        <effect>
+                            <DropShadow radius="2" color="#00000040"/>
+                        </effect>
+                    </Label>
 
-                    <!-- Send Friend Request Section -->
-                    <VBox spacing="10">
-                        <Label text="Send Friend Request" style="-fx-font-size: 18px; -fx-text-fill: #1A237E; -fx-padding: 10;">
-                            <effect>
-                                <DropShadow radius="2" color="#00000040"/>
-                            </effect>
-                        </Label>
-                        <TextField fx:id="friendEmailInput" promptText="Enter friend's email..." />
-                        <Button text="Send Request" onAction="#handleSendFriendRequest"
-                                style="-fx-background-color: #3949AB; -fx-text-fill: white;"/>
-                    </VBox>
+                    <ListView fx:id="contactsList" style="-fx-background-color: transparent; -fx-border-width: 0;">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="John Doe (online)"/>
+                                <String fx:value="Jane Smith"/>
+                                <String fx:value="Mike Johnson (online)"/>
+                                <String fx:value="Sarah Williams"/>
+                                <String fx:value="David Brown"/>
+                            </FXCollections>
+                        </items>
+                    </ListView>
                 </VBox>
             </left>
 
@@ -110,7 +87,7 @@
                 </VBox>
             </center>
 
-            <!-- Right - User Profile -->
+            <!-- Right - User details (optional) -->
             <right>
                 <VBox prefWidth="200" style="-fx-background-color: #e3f2fd; -fx-padding: 10;">
                     <Label text="My Profile" style="-fx-font-size: 18px; -fx-text-fill: #1A237E;">
