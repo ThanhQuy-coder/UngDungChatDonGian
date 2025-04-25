@@ -1,0 +1,1534 @@
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><project xmlns=\"http://maven.apache.org/POM/4.0.0\"\r\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0\r\n         http://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n\r\n    <modelVersion>4.0.0</modelVersion>\r\n\r\n    <groupId>com.example</groupId>\r\n    <artifactId>my-project</artifactId>\r\n    <version>1.0.0</version>\r\n\r\n    <dependencies>\r\n        <dependency>\r\n            <groupId>com.microsoft.sqlserver</groupId>\r\n            <artifactId>mssql-jdbc</artifactId>\r\n            <version>12.6.1.jre11</version>\r\n        </dependency>\r\n        <!-- JavaFX Modules -->\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-controls</artifactId>\r\n            <version>17.0.6</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-fxml</artifactId>\r\n            <version>17.0.6</version>\r\n        </dependency>\r\n        <!-- Thêm nếu cần -->\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-graphics</artifactId>\r\n            <version>17.0.6</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-media</artifactId>\r\n            <version>17.0.6</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-web</artifactId>\r\n            <version>17.0.6</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.mindrot</groupId>\r\n            <artifactId>jbcrypt</artifactId>\r\n            <version>0.4</version>\r\n        </dependency>\r\n    </dependencies>\r\n\r\n    <build>\r\n        <plugins>\r\n            <plugin>\r\n                <groupId>org.openjfx</groupId>\r\n                <artifactId>javafx-maven-plugin</artifactId>\r\n                <version>0.0.8</version>\r\n                <configuration>\r\n                    <mainClass>com.simplechat.MainApp</mainClass>\r\n                </configuration>\r\n                <executions>\r\n                    <execution>\r\n                        <goals>\r\n                            <goal>run</goal>\r\n                        </goals>\r\n                    </execution>\r\n                </executions>\r\n            </plugin>\r\n        </plugins>\r\n    </build>\r\n</project>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/pom.xml	(date 1745582353813)
+@@ -30,7 +30,7 @@
+         <dependency>
+             <groupId>org.openjfx</groupId>
+             <artifactId>javafx-graphics</artifactId>
+-            <version>17.0.6</version>
++            <version>21.0.2</version>
+         </dependency>
+         <dependency>
+             <groupId>org.openjfx</groupId>
+@@ -65,6 +65,14 @@
+                         </goals>
+                     </execution>
+                 </executions>
++            </plugin>
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-compiler-plugin</artifactId>
++                <configuration>
++                    <source>10</source>
++                    <target>10</target>
++                </configuration>
+             </plugin>
+         </plugins>
+     </build>
+Index: src/main/java/com/simplechat/models/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.simplechat.models;\r\n\r\npublic class User {\r\n    private String userID;\r\n    private String username;\r\n    private String email;\r\n    private String password;\r\n    private String status;\r\n\r\n    public User(String username, String email, String password){\r\n        this.username = username;\r\n        this.email = email;\r\n        this.password = password;\r\n    }\r\n\r\n    public final String getUserID(){\r\n        return userID;\r\n    }\r\n\r\n    public final String getUsername(){\r\n        return username;\r\n    }\r\n\r\n    public final String getEmail(){\r\n        return email;\r\n    }\r\n\r\n    public final String getPassword(){\r\n        return password;\r\n    }\r\n\r\n    public final String getStatus(){\r\n        return status;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/simplechat/models/User.java b/src/main/java/com/simplechat/models/User.java
+--- a/src/main/java/com/simplechat/models/User.java	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/src/main/java/com/simplechat/models/User.java	(date 1744993986180)
+@@ -7,6 +7,13 @@
+     private String password;
+     private String status;
+ 
++    public User(String userID, String username, String email, String password) {
++        this.userID = userID;
++        this.username = username;
++        this.email = email;
++        this.password = password;
++    }
++
+     public User(String username, String email, String password){
+         this.username = username;
+         this.email = email;
+Index: src/main/java/com/simplechat/models/ChatSession.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.simplechat.models;\r\n\r\npublic class ChatSession {\r\n    private String sessionID;\r\n    private User user1;\r\n    private User user2;\r\n\r\n    public void startChat(){\r\n\r\n    }\r\n\r\n    public void endChat(){\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/simplechat/models/ChatSession.java b/src/main/java/com/simplechat/models/ChatSession.java
+--- a/src/main/java/com/simplechat/models/ChatSession.java	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/src/main/java/com/simplechat/models/ChatSession.java	(date 1744995160813)
+@@ -5,11 +5,24 @@
+     private User user1;
+     private User user2;
+ 
+-    public void startChat(){
++    public ChatSession() {
++    }
++
++    public ChatSession(String sessionID, User user1, User user2) {
++        this.sessionID = sessionID;
++        this.user1 = user1;
++        this.user2 = user2;
++    }
+ 
++    public String getSessionID() {
++        return sessionID;
+     }
+ 
+-    public void endChat(){
++    public User getUser1() {
++        return user1;
++    }
+ 
++    public User getUser2() {
++        return user2;
+     }
+ }
+Index: src/main/java/com/simplechat/models/RealTimeService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.simplechat.models;\r\n\r\npublic class RealTimeService {\r\n    public void updateMessageStatus() {\r\n\r\n    }\r\n\r\n    public void sendRealTimeMessage(){\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/simplechat/models/RealTimeService.java b/src/main/java/com/simplechat/models/RealTimeService.java
+--- a/src/main/java/com/simplechat/models/RealTimeService.java	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/src/main/java/com/simplechat/models/RealTimeService.java	(date 1745582498032)
+@@ -1,11 +1,41 @@
+ package com.simplechat.models;
+ 
++import com.simplechat.controllers.ChatController;
++import javafx.application.Platform;
++
++import java.util.concurrent.Executors;
++import java.util.concurrent.ScheduledExecutorService;
++import java.util.concurrent.TimeUnit;
++
+ public class RealTimeService {
+-    public void updateMessageStatus() {
++    private ChatController chatController;
++    private final ScheduledExecutorService scheduler;
++    private volatile boolean running;
+ 
++    public RealTimeService() {
++        this.running = false;
++        this.scheduler = Executors.newSingleThreadScheduledExecutor();
+     }
+ 
+-    public void sendRealTimeMessage(){
++    public void startListening(ChatSession session, ChatController controller) {
++        this.chatController = controller;
++        this.running = true;
+ 
++        scheduler.scheduleAtFixedRate(() -> {
++            if (running) {
++                Platform.runLater(() -> {
++                    if (chatController != null) {
++                        System.out.println("Updating friend requests list...");
++                        chatController.updateFriendRequestsList();
++                    }
++                });
++            }
++        }, 0, 5, TimeUnit.SECONDS);
+     }
+-}
++
++    public void stopListening() {
++        running = false;
++        scheduler.shutdown();
++        chatController = null;
++    }
++}
+\ No newline at end of file
+Index: src/main/java/com/simplechat/dao/userDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.simplechat.dao;\r\n\r\nimport com.simplechat.models.User;\r\nimport org.mindrot.jbcrypt.BCrypt;\r\n\r\nimport java.sql.Connection;\r\nimport java.sql.PreparedStatement;\r\nimport java.sql.ResultSet;\r\nimport java.sql.SQLException;\r\nimport java.util.UUID;\r\n\r\npublic class userDAO {\r\n    private Connection conn;\r\n\r\n    public userDAO(Connection conn){\r\n        this.conn = conn;\r\n    }\r\n\r\n    public boolean addUser(User user) throws SQLException{\r\n        String id = UUID.randomUUID().toString();\r\n        String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());\r\n\r\n        String sql = \"INSERT INTO Users (userID, username, email, password) VALUES (?,?,?,?)\";\r\n        try(PreparedStatement stmt = conn.prepareStatement(sql)){\r\n            stmt.setString(1, id);\r\n            stmt.setString(2, user.getUsername());\r\n            stmt.setString(3, user.getEmail());\r\n            stmt.setString(4, hashedPassword);\r\n            int rowsInserted = stmt.executeUpdate();\r\n            return rowsInserted > 0;\r\n        }\r\n    }\r\n\r\n    public boolean validateUser(String username, String password) throws SQLException{\r\n        String sql = \"SELECT password FROM users WHERE username = ?\";\r\n        try(PreparedStatement stmt = conn.prepareStatement(sql)){\r\n            stmt.setString(1, username);\r\n            ResultSet rs = stmt.executeQuery();\r\n\r\n            if (rs.next()){\r\n                String hashedPassword = rs.getString(\"password\");\r\n\r\n                if (BCrypt.checkpw(password, hashedPassword)){\r\n                    return true;\r\n                }\r\n            }\r\n        }\r\n        return false;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/simplechat/dao/userDAO.java b/src/main/java/com/simplechat/dao/userDAO.java
+--- a/src/main/java/com/simplechat/dao/userDAO.java	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/src/main/java/com/simplechat/dao/userDAO.java	(date 1745532352697)
+@@ -2,26 +2,25 @@
+ 
+ import com.simplechat.models.User;
+ import org.mindrot.jbcrypt.BCrypt;
+-
+-import java.sql.Connection;
+-import java.sql.PreparedStatement;
+-import java.sql.ResultSet;
+-import java.sql.SQLException;
++import java.sql.*;
++import java.util.ArrayList;
++import java.util.List;
+ import java.util.UUID;
+ 
+-public class userDAO {
+-    private Connection conn;
++public class UserDAO {
++    private final Connection conn;
+ 
+-    public userDAO(Connection conn){
++    public UserDAO(Connection conn) {
+         this.conn = conn;
+     }
+ 
+-    public boolean addUser(User user) throws SQLException{
++    // Thêm người dùng mới
++    public boolean addUser(User user) throws SQLException {
+         String id = UUID.randomUUID().toString();
+         String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+ 
+-        String sql = "INSERT INTO Users (userID, username, email, password) VALUES (?,?,?,?)";
+-        try(PreparedStatement stmt = conn.prepareStatement(sql)){
++        String sql = "INSERT INTO Users (userID, username, email, password) VALUES (?, ?, ?, ?)";
++        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+             stmt.setString(1, id);
+             stmt.setString(2, user.getUsername());
+             stmt.setString(3, user.getEmail());
+@@ -31,20 +30,82 @@
+         }
+     }
+ 
+-    public boolean validateUser(String username, String password) throws SQLException{
+-        String sql = "SELECT password FROM users WHERE username = ?";
+-        try(PreparedStatement stmt = conn.prepareStatement(sql)){
++    // Kiểm tra thông tin đăng nhập
++    public boolean validateUser(String username, String password) throws SQLException {
++        String sql = "SELECT password FROM Users WHERE username = ?";
++        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+             stmt.setString(1, username);
+             ResultSet rs = stmt.executeQuery();
+ 
+-            if (rs.next()){
++            if (rs.next()) {
+                 String hashedPassword = rs.getString("password");
+-
+-                if (BCrypt.checkpw(password, hashedPassword)){
+-                    return true;
+-                }
++                return BCrypt.checkpw(password, hashedPassword);
+             }
+         }
+         return false;
+     }
++
++    // Lấy thông tin người dùng theo username
++    public User getUserByUsername(String username) throws SQLException {
++        String sql = "SELECT * FROM Users WHERE username = ?";
++        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
++            stmt.setString(1, username);
++            ResultSet rs = stmt.executeQuery();
++
++            if (rs.next()) {
++                return new User(
++                        rs.getString("userID"),
++                        rs.getString("username"),
++                        rs.getString("email"),
++                        null // không trả về mật khẩu
++                );
++            }
++        }
++        return null;
++    }
++
++    // Lấy thông tin người dùng theo ID
++    public User getUserById(String userId) throws SQLException {
++        String sql = "SELECT * FROM Users WHERE userID = ?";
++        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
++            stmt.setString(1, userId);
++            ResultSet rs = stmt.executeQuery();
++
++            if (rs.next()) {
++                return new User(
++                        rs.getString("userID"),
++                        rs.getString("username"),
++                        rs.getString("email"),
++                        null
++                );
++            }
++        }
++        return null;
++    }
++
++    // Trong UserDAO.java
++    public void updateUserStatus(String userId, String status) throws SQLException {
++        String sql = "UPDATE Users SET status = ? WHERE userID = ?";
++        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
++            stmt.setString(1, status);
++            stmt.setString(2, userId);
++            stmt.executeUpdate();
++        }
++    }
++
++    public List<User> getOnlineFriends(String userId) throws SQLException {
++        List<User> onlineFriends = new ArrayList<>();
++        FriendDAO friendDAO = new FriendDAO(conn);
++        List<User> friends = friendDAO.getFriends(userId);
++        for (User friend : friends) {
++            if ("online".equals(friend.getStatus())) {
++                onlineFriends.add(friend);
++            }
++        }
++        return onlineFriends;
++    }
++
++    public Connection getConnection() {
++        return conn;
++    }
+ }
+Index: src/main/java/com/simplechat/models/Message.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.simplechat.models;\r\n\r\nimport java.sql.Date;\r\n\r\npublic class Message {\r\n    private String messageID;\r\n    private User sender;\r\n    private User receiver;\r\n    private String content;\r\n    private Date timestamp;\r\n    private String status;\r\n\r\n    public void sendMessage(){\r\n\r\n    }\r\n    public void receiveMessage(){\r\n\r\n    }\r\n    public void updateStatus(){\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/simplechat/models/Message.java b/src/main/java/com/simplechat/models/Message.java
+--- a/src/main/java/com/simplechat/models/Message.java	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/src/main/java/com/simplechat/models/Message.java	(date 1745520688028)
+@@ -1,6 +1,7 @@
+ package com.simplechat.models;
+ 
+-import java.sql.Date;
++import java.sql.Timestamp;
++import java.util.Date;
+ 
+ public class Message {
+     private String messageID;
+@@ -8,15 +9,53 @@
+     private User receiver;
+     private String content;
+     private Date timestamp;
+-    private String status;
++    private String status; // "sent", "delivered", "seen"...
++
++    public Message() {}
++
+ 
+-    public void sendMessage(){
++    public Message(String messageID, User sender, User receiver, String content, Date timestamp, String status) {
++        this.messageID = messageID;
++        this.sender = sender;
++        this.receiver = receiver;
++        this.content = content;
++        this.timestamp = timestamp;
++        this.status = status;
++    }
+ 
++    public Message(User sender, User receiver, String content, Timestamp timestamp, String status) {
++        this.sender = sender;
++        this.receiver = receiver;
++        this.content = content;
++        this.timestamp = timestamp;
++        this.status = status;
+     }
+-    public void receiveMessage(){
+ 
++    public String getMessageID() {
++        return messageID;
+     }
+-    public void updateStatus(){
+ 
++    public User getSender() {
++        return sender;
++    }
++
++    public User getReceiver() {
++        return receiver;
++    }
++
++    public String getContent() {
++        return content;
++    }
++
++    public Date getTimestamp() {
++        return timestamp;
++    }
++
++    public String getStatus() {
++        return status;
++    }
++
++    public User getSenderId() {
++        return sender;
+     }
+ }
+Index: target/classes/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>C:\\N\\University\\School\\Java\\UngDungChatDonGian\\UngDungChatDonGian\\src\\main\\java\\com\\simplechat\\controllers\\SignInController.java\r\nC:\\N\\University\\School\\Java\\UngDungChatDonGian\\UngDungChatDonGian\\src\\main\\java\\com\\simplechat\\controllers\\SignUpController.java\r\nC:\\N\\University\\School\\Java\\UngDungChatDonGian\\UngDungChatDonGian\\src\\main\\java\\com\\simplechat\\database\\Database.java\r\nC:\\N\\University\\School\\Java\\UngDungChatDonGian\\UngDungChatDonGian\\src\\main\\java\\com\\simplechat\\MainApp.java\r\nC:\\N\\University\\School\\Java\\UngDungChatDonGian\\UngDungChatDonGian\\src\\main\\java\\com\\simplechat\\models\\ChatSession.java\r\nC:\\N\\University\\School\\Java\\UngDungChatDonGian\\UngDungChatDonGian\\src\\main\\java\\com\\simplechat\\models\\Message.java\r\nC:\\N\\University\\School\\Java\\UngDungChatDonGian\\UngDungChatDonGian\\src\\main\\java\\com\\simplechat\\models\\RealTimeService.java\r\nC:\\N\\University\\School\\Java\\UngDungChatDonGian\\UngDungChatDonGian\\src\\main\\java\\com\\simplechat\\models\\User.java\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst b/target/classes/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+--- a/target/classes/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/target/classes/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst	(date 1745582100573)
+@@ -1,5 +1,10 @@
++C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\controllers\ChatController.java
+ C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\controllers\SignInController.java
+ C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\controllers\SignUpController.java
++C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\dao\ChatSessionDAO.java
++C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\dao\FriendDAO.java
++C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\dao\MessageDAO.java
++C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\dao\UserDAO.java
+ C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\database\Database.java
+ C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\MainApp.java
+ C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\models\ChatSession.java
+Index: src/main/resources/com/simplechat/views/chat.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.*?>\r\n<?import javafx.scene.layout.*?>\r\n<?import javafx.scene.text.*?>\r\n<?import javafx.scene.image.*?>\r\n<?import javafx.scene.effect.DropShadow?>\r\n\r\n<AnchorPane xmlns=\"http://javafx.com/javafx/17\"\r\n            xmlns:fx=\"http://javafx.com/fxml/1\"\r\n            fx:controller=\"com.simplechat.controllers.SignInController\">\r\n\r\n    <Pane prefWidth=\"900\" prefHeight=\"600\">\r\n        <!-- Background Image -->\r\n        <ImageView fitWidth=\"900\" fitHeight=\"600\">\r\n            <image>\r\n                <Image url=\"\"/>\r\n            </image>\r\n        </ImageView>\r\n\r\n        <!-- Sign In / Sign Up Toggle -->\r\n        <Text text=\"SIGN IN\" layoutX=\"330\" layoutY=\"270\" fill=\"black\">\r\n            <font>\r\n                <Font size=\"22\" />\r\n            </font>\r\n            <effect>\r\n                <DropShadow radius=\"3\" color=\"#000000\"/>\r\n            </effect>\r\n        </Text>\r\n\r\n        <Text text=\"SIGN UP\" layoutX=\"350\" layoutY=\"310\" fill=\"#636363\" onMouseClicked=\"#openSignUp\">\r\n            <font>\r\n                <Font size=\"18\" />\r\n            </font>\r\n            <effect>\r\n                <DropShadow radius=\"3\" color=\"#888888\"/>\r\n            </effect>\r\n        </Text>\r\n\r\n        <!-- Sign In Form -->\r\n        <VBox spacing=\"15\" alignment=\"CENTER\" layoutX=\"600\" layoutY=\"200\">\r\n            <Text text=\"Welcome Back\" fill=\"#1A237E\">\r\n                <font>\r\n                    <Font size=\"26\" />\r\n                </font>\r\n            </Text>\r\n\r\n            <!-- Username -->\r\n            <HBox spacing=\"10\">\r\n                <ImageView fitWidth=\"24\" fitHeight=\"24\">\r\n                    <image>\r\n                        <Image url=\"@/images/img_4.png\"/>\r\n                    </image>\r\n                </ImageView>\r\n                <TextField fx:id=\"usernameField\" promptText=\"Username\"/>\r\n            </HBox>\r\n\r\n            <!-- Password -->\r\n            <HBox spacing=\"10\">\r\n                <ImageView fitWidth=\"24\" fitHeight=\"24\">\r\n                    <image>\r\n                        <Image url=\"@/images/img_6.png\"/>\r\n                    </image>\r\n                </ImageView>\r\n                <PasswordField fx:id=\"passwordField\" promptText=\"Password\"/>\r\n            </HBox>\r\n\r\n            <!-- Error Message -->\r\n            <Text fx:id=\"errorMessage\" text=\"\" fill=\"red\" />\r\n\r\n            <!-- Sign In Button -->\r\n            <Button text=\"Sign In\"\r\n                    onAction=\"#handleLogin\"\r\n                    style=\"-fx-background-color: #3949AB; -fx-text-fill: white; -fx-font-size: 16px;\"/>\r\n\r\n            <!-- Switch to Sign Up -->\r\n            <Label text=\"Don't have an account? Sign Up\"\r\n                   textFill=\"blue\"\r\n                   onMouseClicked=\"#openSignUp\"/>\r\n        </VBox>\r\n    </Pane>\r\n</AnchorPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/simplechat/views/chat.fxml b/src/main/resources/com/simplechat/views/chat.fxml
+--- a/src/main/resources/com/simplechat/views/chat.fxml	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/src/main/resources/com/simplechat/views/chat.fxml	(date 1745530504062)
+@@ -1,82 +1,124 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ 
++<?import java.lang.String?>
++<?import javafx.collections.FXCollections?>
++<?import javafx.geometry.Insets?>
+ <?import javafx.scene.control.*?>
++<?import javafx.scene.effect.DropShadow?>
++<?import javafx.scene.image.Image?>
++<?import javafx.scene.image.ImageView?>
+ <?import javafx.scene.layout.*?>
+-<?import javafx.scene.text.*?>
+-<?import javafx.scene.image.*?>
+-<?import javafx.scene.effect.DropShadow?>
+ 
+-<AnchorPane xmlns="http://javafx.com/javafx/17"
+-            xmlns:fx="http://javafx.com/fxml/1"
+-            fx:controller="com.simplechat.controllers.SignInController">
++<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.simplechat.controllers.ChatController">
+ 
+-    <Pane prefWidth="900" prefHeight="600">
+-        <!-- Background Image -->
+-        <ImageView fitWidth="900" fitHeight="600">
+-            <image>
+-                <Image url=""/>
+-            </image>
+-        </ImageView>
++    <Pane prefHeight="600" prefWidth="900" style="-fx-background-color: #f5f5f5;">
++        <!-- Header -->
++        <HBox prefHeight="60" prefWidth="900" style="-fx-background-color: #3949AB;">
++            <Label style="-fx-font-size: 24px;" text="Chat Application" textFill="white">
++                <padding>
++                    <Insets left="20" top="15" />
++                </padding>
++                <effect>
++                    <DropShadow color="#00000080" radius="3" />
++                </effect>
++            </Label>
+ 
+-        <!-- Sign In / Sign Up Toggle -->
+-        <Text text="SIGN IN" layoutX="330" layoutY="270" fill="black">
+-            <font>
+-                <Font size="22" />
+-            </font>
+-            <effect>
+-                <DropShadow radius="3" color="#000000"/>
+-            </effect>
+-        </Text>
++            <!-- User info and logout -->
++            <HBox alignment="CENTER_RIGHT" spacing="10" HBox.hgrow="ALWAYS">
++                <Label fx:id="usernameLabel" style="-fx-font-size: 16px;" textFill="white" />
++                <Button onAction="#handleLogout" style="-fx-background-color: #e53935; -fx-text-fill: white;" text="Logout" />
++                <padding>
++                    <Insets right="20" />
++                </padding>
++            </HBox>
++        </HBox>
++
++        <!-- Main Content -->
++        <BorderPane layoutY="60" prefHeight="540" prefWidth="900">
++            <!-- Left - Contacts and Add Friends -->
++            <left>
++                <VBox prefWidth="250" style="-fx-background-color: #e3f2fd;">
++                    <TabPane tabClosingPolicy="UNAVAILABLE">
++                        <!-- Tab 1: Contacts -->
++                        <Tab text="Contacts">
++                            <VBox>
++                                <Label style="-fx-font-size: 18px; -fx-text-fill: #1A237E; -fx-padding: 10;" text="Contacts">
++                                    <effect>
++                                        <DropShadow color="#00000040" radius="2" />
++                                    </effect>
++                                </Label>
++                                <ListView fx:id="contactsList" style="-fx-background-color: transparent; -fx-border-width: 0;" VBox.vgrow="ALWAYS" />
++                            </VBox>
++                        </Tab>
+ 
+-        <Text text="SIGN UP" layoutX="350" layoutY="310" fill="#636363" onMouseClicked="#openSignUp">
+-            <font>
+-                <Font size="18" />
+-            </font>
+-            <effect>
+-                <DropShadow radius="3" color="#888888"/>
+-            </effect>
+-        </Text>
++                        <!-- Tab 2: Add Friends -->
++                        <Tab text="Add Friends">
++                            <VBox>
++                                <Label style="-fx-font-size: 18px; -fx-text-fill: #1A237E; -fx-padding: 10;" text="Add Friends">
++                                    <effect>
++                                        <DropShadow color="#00000040" radius="2" />
++                                    </effect>
++                                </Label>
++                                <TextField fx:id="searchUserField" promptText="Search users..." />
++                                <ListView fx:id="addFriendsList" style="-fx-background-color: transparent; -fx-border-width: 0;" VBox.vgrow="ALWAYS" />
++                            </VBox>
++                        </Tab>
+ 
+-        <!-- Sign In Form -->
+-        <VBox spacing="15" alignment="CENTER" layoutX="600" layoutY="200">
+-            <Text text="Welcome Back" fill="#1A237E">
+-                <font>
+-                    <Font size="26" />
+-                </font>
+-            </Text>
++                        <!-- Tab mới: Friend Requests -->
++                        <Tab text="Friend Requests" closable="false">
++                            <VBox>
++                                <Button fx:id="refreshRequestsButton" text="Refresh" onAction="#handleRefreshRequests" style="-fx-background-color: #2196F3; -fx-text-fill: white;" />
++                                <ListView fx:id="friendRequestsList" prefHeight="300.0" prefWidth="200.0" />
++                            </VBox>
++                        </Tab>
++                    </TabPane>
++                </VBox>
++            </left>
+ 
+-            <!-- Username -->
+-            <HBox spacing="10">
+-                <ImageView fitWidth="24" fitHeight="24">
+-                    <image>
+-                        <Image url="@/images/img_4.png"/>
+-                    </image>
+-                </ImageView>
+-                <TextField fx:id="usernameField" promptText="Username"/>
+-            </HBox>
++            <!-- Center - Chat Area -->
++            <center>
++                <VBox style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 1;">
++                    <!-- Chat header -->
++                    <HBox style="-fx-background-color: #bbdefb; -fx-padding: 10;">
++                        <Label fx:id="currentChatLabel" style="-fx-font-size: 16px; -fx-text-fill: #1A237E;" text="Select a contact to chat" />
++                    </HBox>
+ 
+-            <!-- Password -->
+-            <HBox spacing="10">
+-                <ImageView fitWidth="24" fitHeight="24">
+-                    <image>
+-                        <Image url="@/images/img_6.png"/>
+-                    </image>
+-                </ImageView>
+-                <PasswordField fx:id="passwordField" promptText="Password"/>
+-            </HBox>
++                    <!-- Messages area -->
++                    <ListView fx:id="messagesList" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
++                        <items>
++                            <FXCollections fx:factory="observableArrayList">
++                                <String fx:value="Welcome to the chat!" />
++                            </FXCollections>
++                        </items>
++                    </ListView>
++
++                    <!-- Message input -->
++                    <HBox style="-fx-padding: 10; -fx-spacing: 10; -fx-background-color: #f5f5f5;">
++                        <TextField fx:id="messageInput" promptText="Type your message here..." HBox.hgrow="ALWAYS" />
++                        <Button onAction="#handleSendMessage" style="-fx-background-color: #3949AB; -fx-text-fill: white;" text="Send" />
++                    </HBox>
++                </VBox>
++            </center>
+ 
+-            <!-- Error Message -->
+-            <Text fx:id="errorMessage" text="" fill="red" />
++            <!-- Right - User details -->
++            <right>
++                <VBox prefWidth="200" style="-fx-background-color: #e3f2fd; -fx-padding: 10;">
++                    <Label style="-fx-font-size: 18px; -fx-text-fill: #1A237E;" text="My Profile">
++                        <effect>
++                            <DropShadow color="#00000040" radius="2" />
++                        </effect>
++                    </Label>
+ 
+-            <!-- Sign In Button -->
+-            <Button text="Sign In"
+-                    onAction="#handleLogin"
+-                    style="-fx-background-color: #3949AB; -fx-text-fill: white; -fx-font-size: 16px;"/>
++                    <ImageView fitHeight="100" fitWidth="100" preserveRatio="true">
++                        <Image url="@/images/img_8.png" />
++                    </ImageView>
+ 
+-            <!-- Switch to Sign Up -->
+-            <Label text="Don't have an account? Sign Up"
+-                   textFill="blue"
+-                   onMouseClicked="#openSignUp"/>
+-        </VBox>
++                    <Label fx:id="userProfileName" style="-fx-font-size: 16px; -fx-text-fill: #1A237E;" text="Username" />
++                    <Label style="-fx-font-size: 14px; -fx-text-fill: #4CAF50;" text="Status: Online" />
++
++                    <Button onAction="#handleChangeAvatar" style="-fx-background-color: #7986CB; -fx-text-fill: white; -fx-margin-top: 20;" text="Change Avatar" />
++                </VBox>
++            </right>
++        </BorderPane>
+     </Pane>
+-</AnchorPane>
++</AnchorPane>
+\ No newline at end of file
+Index: target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>com\\simplechat\\database\\Database.class\r\ncom\\simplechat\\models\\ChatSession.class\r\ncom\\simplechat\\models\\User.class\r\ncom\\simplechat\\MainApp.class\r\ncom\\simplechat\\models\\Message.class\r\ncom\\simplechat\\controllers\\SignInController.class\r\ncom\\simplechat\\controllers\\SignUpController.class\r\ncom\\simplechat\\models\\RealTimeService.class\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst b/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+--- a/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst	(date 1745582561229)
+@@ -1,8 +1,12 @@
+ com\simplechat\database\Database.class
+ com\simplechat\models\ChatSession.class
++com\simplechat\controllers\ChatController.class
++com\simplechat\controllers\ChatController$2.class
++com\simplechat\dao\UserDAO.class
+ com\simplechat\models\User.class
+ com\simplechat\MainApp.class
+ com\simplechat\models\Message.class
++com\simplechat\controllers\ChatController$3.class
+ com\simplechat\controllers\SignInController.class
+ com\simplechat\controllers\SignUpController.class
+ com\simplechat\models\RealTimeService.class
+Index: src/main/resources/com/simplechat/views/sign_in.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.*?>\r\n<?import javafx.scene.layout.*?>\r\n<?import javafx.scene.text.*?>\r\n<?import javafx.scene.image.*?>\r\n<?import javafx.scene.effect.DropShadow?>\r\n\r\n<AnchorPane xmlns=\"http://javafx.com/javafx/17\"\r\n            xmlns:fx=\"http://javafx.com/fxml/1\"\r\n            fx:controller=\"com.simplechat.controllers.SignInController\">\r\n\r\n    <Pane prefWidth=\"900\" prefHeight=\"600\">\r\n        <!-- Background Image -->\r\n        <ImageView fitWidth=\"900\" fitHeight=\"600\">\r\n            <image>\r\n                <Image url=\"@/images/img_9.png\"/>\r\n            </image>\r\n        </ImageView>\r\n\r\n        <!-- Sign In / Sign Up Toggle -->\r\n        <Text text=\"SIGN IN\" layoutX=\"330\" layoutY=\"270\" fill=\"black\">\r\n            <font>\r\n                <Font size=\"22\" />\r\n            </font>\r\n            <effect>\r\n                <DropShadow radius=\"3\" color=\"#000000\"/>\r\n            </effect>\r\n        </Text>\r\n\r\n        <Text text=\"SIGN UP\" layoutX=\"350\" layoutY=\"310\" fill=\"#636363\" onMouseClicked=\"#openSignUp\">\r\n            <font>\r\n                <Font size=\"18\" />\r\n            </font>\r\n            <effect>\r\n                <DropShadow radius=\"3\" color=\"#888888\"/>\r\n            </effect>\r\n        </Text>\r\n\r\n        <!-- Sign In Form -->\r\n        <VBox spacing=\"15\" alignment=\"CENTER\" layoutX=\"600\" layoutY=\"200\">\r\n            <Text text=\"Welcome Back\" fill=\"#1A237E\">\r\n                <font>\r\n                    <Font size=\"26\" />\r\n                </font>\r\n            </Text>\r\n\r\n            <!-- Username -->\r\n            <HBox spacing=\"10\">\r\n                <ImageView fitWidth=\"24\" fitHeight=\"24\">\r\n                    <image>\r\n                        <Image url=\"@/images/img_4.png\"/>\r\n                    </image>\r\n                </ImageView>\r\n                <TextField fx:id=\"usernameField\" promptText=\"Username\"/>\r\n            </HBox>\r\n\r\n            <!-- Password -->\r\n            <HBox spacing=\"10\">\r\n                <ImageView fitWidth=\"24\" fitHeight=\"24\">\r\n                    <image>\r\n                        <Image url=\"@/images/img_6.png\"/>\r\n                    </image>\r\n                </ImageView>\r\n                <PasswordField fx:id=\"passwordField\" promptText=\"Password\"/>\r\n            </HBox>\r\n\r\n            <!-- Error Message -->\r\n            <Text fx:id=\"errorMessage\" text=\"\" fill=\"red\" />\r\n\r\n            <!-- Sign In Button -->\r\n            <Button text=\"Sign In\"\r\n                    onAction=\"#handleLogin\"\r\n                    style=\"-fx-background-color: #3949AB; -fx-text-fill: white; -fx-font-size: 16px;\"/>\r\n\r\n            <!-- Switch to Sign Up -->\r\n            <Label text=\"Don't have an account? Sign Up\"\r\n                   textFill=\"blue\"\r\n                   onMouseClicked=\"#openSignUp\"/>\r\n        </VBox>\r\n    </Pane>\r\n</AnchorPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/simplechat/views/sign_in.fxml b/src/main/resources/com/simplechat/views/sign_in.fxml
+--- a/src/main/resources/com/simplechat/views/sign_in.fxml	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/src/main/resources/com/simplechat/views/sign_in.fxml	(date 1744983774714)
+@@ -13,9 +13,7 @@
+     <Pane prefWidth="900" prefHeight="600">
+         <!-- Background Image -->
+         <ImageView fitWidth="900" fitHeight="600">
+-            <image>
+-                <Image url="@/images/img_9.png"/>
+-            </image>
++            <Image url="@/images/img_9.png"/>
+         </ImageView>
+ 
+         <!-- Sign In / Sign Up Toggle -->
+@@ -48,9 +46,7 @@
+             <!-- Username -->
+             <HBox spacing="10">
+                 <ImageView fitWidth="24" fitHeight="24">
+-                    <image>
+-                        <Image url="@/images/img_4.png"/>
+-                    </image>
++                    <Image url="@/images/img_4.png"/>
+                 </ImageView>
+                 <TextField fx:id="usernameField" promptText="Username"/>
+             </HBox>
+@@ -58,15 +54,13 @@
+             <!-- Password -->
+             <HBox spacing="10">
+                 <ImageView fitWidth="24" fitHeight="24">
+-                    <image>
+-                        <Image url="@/images/img_6.png"/>
+-                    </image>
++                    <Image url="@/images/img_6.png"/>
+                 </ImageView>
+                 <PasswordField fx:id="passwordField" promptText="Password"/>
+             </HBox>
+ 
+             <!-- Error Message -->
+-            <Text fx:id="errorMessage" text="" fill="red" />
++            <Text fx:id="errorMessage" fill="red" />
+ 
+             <!-- Sign In Button -->
+             <Button text="Sign In"
+Index: target/classes/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>com\\simplechat\\models\\Message.class\r\ncom\\simplechat\\models\\User.class\r\ncom\\simplechat\\controllers\\SignInController.class\r\ncom\\simplechat\\controllers\\SignUpController.class\r\ncom\\simplechat\\models\\RealTimeService.class\r\ncom\\simplechat\\database\\Database.class\r\ncom\\simplechat\\MainApp.class\r\ncom\\simplechat\\models\\ChatSession.class\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst b/target/classes/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+--- a/target/classes/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/target/classes/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst	(date 1745582102710)
+@@ -1,8 +1,12 @@
+-com\simplechat\models\Message.class
++com\simplechat\database\Database.class
++com\simplechat\models\ChatSession.class
++com\simplechat\controllers\ChatController.class
++com\simplechat\controllers\ChatController$2.class
++com\simplechat\dao\UserDAO.class
+ com\simplechat\models\User.class
++com\simplechat\MainApp.class
++com\simplechat\models\Message.class
++com\simplechat\controllers\ChatController$3.class
+ com\simplechat\controllers\SignInController.class
+ com\simplechat\controllers\SignUpController.class
+ com\simplechat\models\RealTimeService.class
+-com\simplechat\database\Database.class
+-com\simplechat\MainApp.class
+-com\simplechat\models\ChatSession.class
+Index: target/classes/src/main/resources/com/simplechat/views/sign_in.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.*?>\r\n<?import javafx.scene.layout.*?>\r\n<?import javafx.scene.text.*?>\r\n<?import javafx.scene.image.*?>\r\n<?import javafx.scene.effect.DropShadow?>\r\n\r\n<AnchorPane xmlns=\"http://javafx.com/javafx/17\"\r\n            xmlns:fx=\"http://javafx.com/fxml/1\"\r\n            fx:controller=\"com.simplechat.controllers.SignInController\">\r\n\r\n    <Pane prefWidth=\"900\" prefHeight=\"600\">\r\n        <!-- Background Image -->\r\n        <ImageView fitWidth=\"900\" fitHeight=\"600\">\r\n            <image>\r\n                <Image url=\"@/images/img_9.png\"/>\r\n            </image>\r\n        </ImageView>\r\n\r\n        <!-- Sign In / Sign Up Toggle -->\r\n        <Text text=\"SIGN IN\" layoutX=\"330\" layoutY=\"270\" fill=\"black\">\r\n            <font>\r\n                <Font size=\"22\" />\r\n            </font>\r\n            <effect>\r\n                <DropShadow radius=\"3\" color=\"#000000\"/>\r\n            </effect>\r\n        </Text>\r\n\r\n        <Text text=\"SIGN UP\" layoutX=\"350\" layoutY=\"310\" fill=\"#636363\" onMouseClicked=\"#openSignUp\">\r\n            <font>\r\n                <Font size=\"18\" />\r\n            </font>\r\n            <effect>\r\n                <DropShadow radius=\"3\" color=\"#888888\"/>\r\n            </effect>\r\n        </Text>\r\n\r\n        <!-- Sign In Form -->\r\n        <VBox spacing=\"15\" alignment=\"CENTER\" layoutX=\"600\" layoutY=\"200\">\r\n            <Text text=\"Welcome Back\" fill=\"#1A237E\">\r\n                <font>\r\n                    <Font size=\"26\" />\r\n                </font>\r\n            </Text>\r\n\r\n            <!-- Username -->\r\n            <HBox spacing=\"10\">\r\n                <ImageView fitWidth=\"24\" fitHeight=\"24\">\r\n                    <image>\r\n                        <Image url=\"@/images/img_4.png\"/>\r\n                    </image>\r\n                </ImageView>\r\n                <TextField fx:id=\"usernameField\" promptText=\"Username\"/>\r\n            </HBox>\r\n\r\n            <!-- Password -->\r\n            <HBox spacing=\"10\">\r\n                <ImageView fitWidth=\"24\" fitHeight=\"24\">\r\n                    <image>\r\n                        <Image url=\"@/images/img_6.png\"/>\r\n                    </image>\r\n                </ImageView>\r\n                <PasswordField fx:id=\"passwordField\" promptText=\"Password\"/>\r\n            </HBox>\r\n\r\n            <!-- Error Message -->\r\n            <Text fx:id=\"errorMessage\" text=\"\" fill=\"red\" />\r\n\r\n            <!-- Sign In Button -->\r\n            <Button text=\"Sign In\"\r\n                    onAction=\"#handleLogin\"\r\n                    style=\"-fx-background-color: #3949AB; -fx-text-fill: white; -fx-font-size: 16px;\"/>\r\n\r\n            <!-- Switch to Sign Up -->\r\n            <Label text=\"Don't have an account? Sign Up\"\r\n                   textFill=\"blue\"\r\n                   onMouseClicked=\"#openSignUp\"/>\r\n        </VBox>\r\n    </Pane>\r\n</AnchorPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/src/main/resources/com/simplechat/views/sign_in.fxml b/target/classes/src/main/resources/com/simplechat/views/sign_in.fxml
+--- a/target/classes/src/main/resources/com/simplechat/views/sign_in.fxml	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/target/classes/src/main/resources/com/simplechat/views/sign_in.fxml	(date 1744983774714)
+@@ -13,9 +13,7 @@
+     <Pane prefWidth="900" prefHeight="600">
+         <!-- Background Image -->
+         <ImageView fitWidth="900" fitHeight="600">
+-            <image>
+-                <Image url="@/images/img_9.png"/>
+-            </image>
++            <Image url="@/images/img_9.png"/>
+         </ImageView>
+ 
+         <!-- Sign In / Sign Up Toggle -->
+@@ -48,9 +46,7 @@
+             <!-- Username -->
+             <HBox spacing="10">
+                 <ImageView fitWidth="24" fitHeight="24">
+-                    <image>
+-                        <Image url="@/images/img_4.png"/>
+-                    </image>
++                    <Image url="@/images/img_4.png"/>
+                 </ImageView>
+                 <TextField fx:id="usernameField" promptText="Username"/>
+             </HBox>
+@@ -58,15 +54,13 @@
+             <!-- Password -->
+             <HBox spacing="10">
+                 <ImageView fitWidth="24" fitHeight="24">
+-                    <image>
+-                        <Image url="@/images/img_6.png"/>
+-                    </image>
++                    <Image url="@/images/img_6.png"/>
+                 </ImageView>
+                 <PasswordField fx:id="passwordField" promptText="Password"/>
+             </HBox>
+ 
+             <!-- Error Message -->
+-            <Text fx:id="errorMessage" text="" fill="red" />
++            <Text fx:id="errorMessage" fill="red" />
+ 
+             <!-- Sign In Button -->
+             <Button text="Sign In"
+Index: .idea/inspectionProfiles/Project_Default.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"InspectionProjectProfileManager\">\r\n  <profile version=\"1.0\">\r\n    <option name=\"myName\" value=\"Project Default\" />\r\n    <inspection_tool class=\"ThrowablePrintStackTrace\" enabled=\"false\" level=\"WARNING\" enabled_by_default=\"false\" />\r\n  </profile>\r\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/inspectionProfiles/Project_Default.xml b/.idea/inspectionProfiles/Project_Default.xml
+--- a/.idea/inspectionProfiles/Project_Default.xml	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/.idea/inspectionProfiles/Project_Default.xml	(date 1745523818166)
+@@ -1,6 +1,10 @@
+ <component name="InspectionProjectProfileManager">
+   <profile version="1.0">
+     <option name="myName" value="Project Default" />
++    <inspection_tool class="AutoCloseableResource" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="BusyWait" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="CatchMayIgnoreException" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="InfiniteLoopStatement" enabled="false" level="WARNING" enabled_by_default="false" />
+     <inspection_tool class="ThrowablePrintStackTrace" enabled="false" level="WARNING" enabled_by_default="false" />
+   </profile>
+ </component>
+\ No newline at end of file
+Index: target/classes/src/main/resources/com/simplechat/views/chat.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.*?>\r\n<?import javafx.scene.layout.*?>\r\n<?import javafx.scene.text.*?>\r\n<?import javafx.scene.image.*?>\r\n<?import javafx.scene.effect.DropShadow?>\r\n\r\n<AnchorPane xmlns=\"http://javafx.com/javafx/17\"\r\n            xmlns:fx=\"http://javafx.com/fxml/1\"\r\n            fx:controller=\"com.simplechat.controllers.SignInController\">\r\n\r\n    <Pane prefWidth=\"900\" prefHeight=\"600\">\r\n        <!-- Background Image -->\r\n        <ImageView fitWidth=\"900\" fitHeight=\"600\">\r\n            <image>\r\n                <Image url=\"\"/>\r\n            </image>\r\n        </ImageView>\r\n\r\n        <!-- Sign In / Sign Up Toggle -->\r\n        <Text text=\"SIGN IN\" layoutX=\"330\" layoutY=\"270\" fill=\"black\">\r\n            <font>\r\n                <Font size=\"22\" />\r\n            </font>\r\n            <effect>\r\n                <DropShadow radius=\"3\" color=\"#000000\"/>\r\n            </effect>\r\n        </Text>\r\n\r\n        <Text text=\"SIGN UP\" layoutX=\"350\" layoutY=\"310\" fill=\"#636363\" onMouseClicked=\"#openSignUp\">\r\n            <font>\r\n                <Font size=\"18\" />\r\n            </font>\r\n            <effect>\r\n                <DropShadow radius=\"3\" color=\"#888888\"/>\r\n            </effect>\r\n        </Text>\r\n\r\n        <!-- Sign In Form -->\r\n        <VBox spacing=\"15\" alignment=\"CENTER\" layoutX=\"600\" layoutY=\"200\">\r\n            <Text text=\"Welcome Back\" fill=\"#1A237E\">\r\n                <font>\r\n                    <Font size=\"26\" />\r\n                </font>\r\n            </Text>\r\n\r\n            <!-- Username -->\r\n            <HBox spacing=\"10\">\r\n                <ImageView fitWidth=\"24\" fitHeight=\"24\">\r\n                    <image>\r\n                        <Image url=\"@/images/img_4.png\"/>\r\n                    </image>\r\n                </ImageView>\r\n                <TextField fx:id=\"usernameField\" promptText=\"Username\"/>\r\n            </HBox>\r\n\r\n            <!-- Password -->\r\n            <HBox spacing=\"10\">\r\n                <ImageView fitWidth=\"24\" fitHeight=\"24\">\r\n                    <image>\r\n                        <Image url=\"@/images/img_6.png\"/>\r\n                    </image>\r\n                </ImageView>\r\n                <PasswordField fx:id=\"passwordField\" promptText=\"Password\"/>\r\n            </HBox>\r\n\r\n            <!-- Error Message -->\r\n            <Text fx:id=\"errorMessage\" text=\"\" fill=\"red\" />\r\n\r\n            <!-- Sign In Button -->\r\n            <Button text=\"Sign In\"\r\n                    onAction=\"#handleLogin\"\r\n                    style=\"-fx-background-color: #3949AB; -fx-text-fill: white; -fx-font-size: 16px;\"/>\r\n\r\n            <!-- Switch to Sign Up -->\r\n            <Label text=\"Don't have an account? Sign Up\"\r\n                   textFill=\"blue\"\r\n                   onMouseClicked=\"#openSignUp\"/>\r\n        </VBox>\r\n    </Pane>\r\n</AnchorPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/src/main/resources/com/simplechat/views/chat.fxml b/target/classes/src/main/resources/com/simplechat/views/chat.fxml
+--- a/target/classes/src/main/resources/com/simplechat/views/chat.fxml	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/target/classes/src/main/resources/com/simplechat/views/chat.fxml	(date 1745530504062)
+@@ -1,82 +1,124 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ 
++<?import java.lang.String?>
++<?import javafx.collections.FXCollections?>
++<?import javafx.geometry.Insets?>
+ <?import javafx.scene.control.*?>
++<?import javafx.scene.effect.DropShadow?>
++<?import javafx.scene.image.Image?>
++<?import javafx.scene.image.ImageView?>
+ <?import javafx.scene.layout.*?>
+-<?import javafx.scene.text.*?>
+-<?import javafx.scene.image.*?>
+-<?import javafx.scene.effect.DropShadow?>
+ 
+-<AnchorPane xmlns="http://javafx.com/javafx/17"
+-            xmlns:fx="http://javafx.com/fxml/1"
+-            fx:controller="com.simplechat.controllers.SignInController">
++<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.simplechat.controllers.ChatController">
+ 
+-    <Pane prefWidth="900" prefHeight="600">
+-        <!-- Background Image -->
+-        <ImageView fitWidth="900" fitHeight="600">
+-            <image>
+-                <Image url=""/>
+-            </image>
+-        </ImageView>
++    <Pane prefHeight="600" prefWidth="900" style="-fx-background-color: #f5f5f5;">
++        <!-- Header -->
++        <HBox prefHeight="60" prefWidth="900" style="-fx-background-color: #3949AB;">
++            <Label style="-fx-font-size: 24px;" text="Chat Application" textFill="white">
++                <padding>
++                    <Insets left="20" top="15" />
++                </padding>
++                <effect>
++                    <DropShadow color="#00000080" radius="3" />
++                </effect>
++            </Label>
+ 
+-        <!-- Sign In / Sign Up Toggle -->
+-        <Text text="SIGN IN" layoutX="330" layoutY="270" fill="black">
+-            <font>
+-                <Font size="22" />
+-            </font>
+-            <effect>
+-                <DropShadow radius="3" color="#000000"/>
+-            </effect>
+-        </Text>
++            <!-- User info and logout -->
++            <HBox alignment="CENTER_RIGHT" spacing="10" HBox.hgrow="ALWAYS">
++                <Label fx:id="usernameLabel" style="-fx-font-size: 16px;" textFill="white" />
++                <Button onAction="#handleLogout" style="-fx-background-color: #e53935; -fx-text-fill: white;" text="Logout" />
++                <padding>
++                    <Insets right="20" />
++                </padding>
++            </HBox>
++        </HBox>
++
++        <!-- Main Content -->
++        <BorderPane layoutY="60" prefHeight="540" prefWidth="900">
++            <!-- Left - Contacts and Add Friends -->
++            <left>
++                <VBox prefWidth="250" style="-fx-background-color: #e3f2fd;">
++                    <TabPane tabClosingPolicy="UNAVAILABLE">
++                        <!-- Tab 1: Contacts -->
++                        <Tab text="Contacts">
++                            <VBox>
++                                <Label style="-fx-font-size: 18px; -fx-text-fill: #1A237E; -fx-padding: 10;" text="Contacts">
++                                    <effect>
++                                        <DropShadow color="#00000040" radius="2" />
++                                    </effect>
++                                </Label>
++                                <ListView fx:id="contactsList" style="-fx-background-color: transparent; -fx-border-width: 0;" VBox.vgrow="ALWAYS" />
++                            </VBox>
++                        </Tab>
+ 
+-        <Text text="SIGN UP" layoutX="350" layoutY="310" fill="#636363" onMouseClicked="#openSignUp">
+-            <font>
+-                <Font size="18" />
+-            </font>
+-            <effect>
+-                <DropShadow radius="3" color="#888888"/>
+-            </effect>
+-        </Text>
++                        <!-- Tab 2: Add Friends -->
++                        <Tab text="Add Friends">
++                            <VBox>
++                                <Label style="-fx-font-size: 18px; -fx-text-fill: #1A237E; -fx-padding: 10;" text="Add Friends">
++                                    <effect>
++                                        <DropShadow color="#00000040" radius="2" />
++                                    </effect>
++                                </Label>
++                                <TextField fx:id="searchUserField" promptText="Search users..." />
++                                <ListView fx:id="addFriendsList" style="-fx-background-color: transparent; -fx-border-width: 0;" VBox.vgrow="ALWAYS" />
++                            </VBox>
++                        </Tab>
+ 
+-        <!-- Sign In Form -->
+-        <VBox spacing="15" alignment="CENTER" layoutX="600" layoutY="200">
+-            <Text text="Welcome Back" fill="#1A237E">
+-                <font>
+-                    <Font size="26" />
+-                </font>
+-            </Text>
++                        <!-- Tab mới: Friend Requests -->
++                        <Tab text="Friend Requests" closable="false">
++                            <VBox>
++                                <Button fx:id="refreshRequestsButton" text="Refresh" onAction="#handleRefreshRequests" style="-fx-background-color: #2196F3; -fx-text-fill: white;" />
++                                <ListView fx:id="friendRequestsList" prefHeight="300.0" prefWidth="200.0" />
++                            </VBox>
++                        </Tab>
++                    </TabPane>
++                </VBox>
++            </left>
+ 
+-            <!-- Username -->
+-            <HBox spacing="10">
+-                <ImageView fitWidth="24" fitHeight="24">
+-                    <image>
+-                        <Image url="@/images/img_4.png"/>
+-                    </image>
+-                </ImageView>
+-                <TextField fx:id="usernameField" promptText="Username"/>
+-            </HBox>
++            <!-- Center - Chat Area -->
++            <center>
++                <VBox style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 1;">
++                    <!-- Chat header -->
++                    <HBox style="-fx-background-color: #bbdefb; -fx-padding: 10;">
++                        <Label fx:id="currentChatLabel" style="-fx-font-size: 16px; -fx-text-fill: #1A237E;" text="Select a contact to chat" />
++                    </HBox>
+ 
+-            <!-- Password -->
+-            <HBox spacing="10">
+-                <ImageView fitWidth="24" fitHeight="24">
+-                    <image>
+-                        <Image url="@/images/img_6.png"/>
+-                    </image>
+-                </ImageView>
+-                <PasswordField fx:id="passwordField" promptText="Password"/>
+-            </HBox>
++                    <!-- Messages area -->
++                    <ListView fx:id="messagesList" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
++                        <items>
++                            <FXCollections fx:factory="observableArrayList">
++                                <String fx:value="Welcome to the chat!" />
++                            </FXCollections>
++                        </items>
++                    </ListView>
++
++                    <!-- Message input -->
++                    <HBox style="-fx-padding: 10; -fx-spacing: 10; -fx-background-color: #f5f5f5;">
++                        <TextField fx:id="messageInput" promptText="Type your message here..." HBox.hgrow="ALWAYS" />
++                        <Button onAction="#handleSendMessage" style="-fx-background-color: #3949AB; -fx-text-fill: white;" text="Send" />
++                    </HBox>
++                </VBox>
++            </center>
+ 
+-            <!-- Error Message -->
+-            <Text fx:id="errorMessage" text="" fill="red" />
++            <!-- Right - User details -->
++            <right>
++                <VBox prefWidth="200" style="-fx-background-color: #e3f2fd; -fx-padding: 10;">
++                    <Label style="-fx-font-size: 18px; -fx-text-fill: #1A237E;" text="My Profile">
++                        <effect>
++                            <DropShadow color="#00000040" radius="2" />
++                        </effect>
++                    </Label>
+ 
+-            <!-- Sign In Button -->
+-            <Button text="Sign In"
+-                    onAction="#handleLogin"
+-                    style="-fx-background-color: #3949AB; -fx-text-fill: white; -fx-font-size: 16px;"/>
++                    <ImageView fitHeight="100" fitWidth="100" preserveRatio="true">
++                        <Image url="@/images/img_8.png" />
++                    </ImageView>
+ 
+-            <!-- Switch to Sign Up -->
+-            <Label text="Don't have an account? Sign Up"
+-                   textFill="blue"
+-                   onMouseClicked="#openSignUp"/>
+-        </VBox>
++                    <Label fx:id="userProfileName" style="-fx-font-size: 16px; -fx-text-fill: #1A237E;" text="Username" />
++                    <Label style="-fx-font-size: 14px; -fx-text-fill: #4CAF50;" text="Status: Online" />
++
++                    <Button onAction="#handleChangeAvatar" style="-fx-background-color: #7986CB; -fx-text-fill: white; -fx-margin-top: 20;" text="Change Avatar" />
++                </VBox>
++            </right>
++        </BorderPane>
+     </Pane>
+-</AnchorPane>
++</AnchorPane>
+\ No newline at end of file
+Index: target/classes/pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><project xmlns=\"http://maven.apache.org/POM/4.0.0\"\r\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0\r\n         http://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n\r\n    <modelVersion>4.0.0</modelVersion>\r\n\r\n    <groupId>com.example</groupId>\r\n    <artifactId>my-project</artifactId>\r\n    <version>1.0.0</version>\r\n\r\n    <dependencies>\r\n        <dependency>\r\n            <groupId>com.microsoft.sqlserver</groupId>\r\n            <artifactId>mssql-jdbc</artifactId>\r\n            <version>12.6.1.jre11</version>\r\n        </dependency>\r\n        <!-- JavaFX Modules -->\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-controls</artifactId>\r\n            <version>17.0.6</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-fxml</artifactId>\r\n            <version>17.0.6</version>\r\n        </dependency>\r\n        <!-- Thêm nếu cần -->\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-graphics</artifactId>\r\n            <version>17.0.6</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-media</artifactId>\r\n            <version>17.0.6</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-web</artifactId>\r\n            <version>17.0.6</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.mindrot</groupId>\r\n            <artifactId>jbcrypt</artifactId>\r\n            <version>0.4</version>\r\n        </dependency>\r\n    </dependencies>\r\n\r\n    <build>\r\n        <plugins>\r\n            <plugin>\r\n                <groupId>org.openjfx</groupId>\r\n                <artifactId>javafx-maven-plugin</artifactId>\r\n                <version>0.0.8</version>\r\n                <configuration>\r\n                    <mainClass>com.simplechat.MainApp</mainClass>\r\n                </configuration>\r\n                <executions>\r\n                    <execution>\r\n                        <goals>\r\n                            <goal>run</goal>\r\n                        </goals>\r\n                    </execution>\r\n                </executions>\r\n            </plugin>\r\n        </plugins>\r\n    </build>\r\n</project>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/pom.xml b/target/classes/pom.xml
+--- a/target/classes/pom.xml	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/target/classes/pom.xml	(date 1745582353813)
+@@ -30,7 +30,7 @@
+         <dependency>
+             <groupId>org.openjfx</groupId>
+             <artifactId>javafx-graphics</artifactId>
+-            <version>17.0.6</version>
++            <version>21.0.2</version>
+         </dependency>
+         <dependency>
+             <groupId>org.openjfx</groupId>
+@@ -65,6 +65,14 @@
+                         </goals>
+                     </execution>
+                 </executions>
++            </plugin>
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-compiler-plugin</artifactId>
++                <configuration>
++                    <source>10</source>
++                    <target>10</target>
++                </configuration>
+             </plugin>
+         </plugins>
+     </build>
+Index: target/classes/.idea/inspectionProfiles/Project_Default.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"InspectionProjectProfileManager\">\r\n  <profile version=\"1.0\">\r\n    <option name=\"myName\" value=\"Project Default\" />\r\n    <inspection_tool class=\"ThrowablePrintStackTrace\" enabled=\"false\" level=\"WARNING\" enabled_by_default=\"false\" />\r\n  </profile>\r\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/.idea/inspectionProfiles/Project_Default.xml b/target/classes/.idea/inspectionProfiles/Project_Default.xml
+--- a/target/classes/.idea/inspectionProfiles/Project_Default.xml	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/target/classes/.idea/inspectionProfiles/Project_Default.xml	(date 1745523818166)
+@@ -1,6 +1,10 @@
+ <component name="InspectionProjectProfileManager">
+   <profile version="1.0">
+     <option name="myName" value="Project Default" />
++    <inspection_tool class="AutoCloseableResource" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="BusyWait" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="CatchMayIgnoreException" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="InfiniteLoopStatement" enabled="false" level="WARNING" enabled_by_default="false" />
+     <inspection_tool class="ThrowablePrintStackTrace" enabled="false" level="WARNING" enabled_by_default="false" />
+   </profile>
+ </component>
+\ No newline at end of file
+Index: target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>C:\\N\\University\\School\\Java\\UngDungChatDonGian\\UngDungChatDonGian\\src\\main\\java\\com\\simplechat\\controllers\\SignInController.java\r\nC:\\N\\University\\School\\Java\\UngDungChatDonGian\\UngDungChatDonGian\\src\\main\\java\\com\\simplechat\\controllers\\SignUpController.java\r\nC:\\N\\University\\School\\Java\\UngDungChatDonGian\\UngDungChatDonGian\\src\\main\\java\\com\\simplechat\\dao\\userDAO.java\r\nC:\\N\\University\\School\\Java\\UngDungChatDonGian\\UngDungChatDonGian\\src\\main\\java\\com\\simplechat\\database\\Database.java\r\nC:\\N\\University\\School\\Java\\UngDungChatDonGian\\UngDungChatDonGian\\src\\main\\java\\com\\simplechat\\MainApp.java\r\nC:\\N\\University\\School\\Java\\UngDungChatDonGian\\UngDungChatDonGian\\src\\main\\java\\com\\simplechat\\models\\ChatSession.java\r\nC:\\N\\University\\School\\Java\\UngDungChatDonGian\\UngDungChatDonGian\\src\\main\\java\\com\\simplechat\\models\\Message.java\r\nC:\\N\\University\\School\\Java\\UngDungChatDonGian\\UngDungChatDonGian\\src\\main\\java\\com\\simplechat\\models\\RealTimeService.java\r\nC:\\N\\University\\School\\Java\\UngDungChatDonGian\\UngDungChatDonGian\\src\\main\\java\\com\\simplechat\\models\\User.java\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst b/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+--- a/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst	(date 1745582670717)
+@@ -1,6 +1,10 @@
++C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\controllers\ChatController.java
+ C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\controllers\SignInController.java
+ C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\controllers\SignUpController.java
+-C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\dao\userDAO.java
++C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\dao\ChatSessionDAO.java
++C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\dao\FriendDAO.java
++C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\dao\MessageDAO.java
++C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\dao\UserDAO.java
+ C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\database\Database.java
+ C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\MainApp.java
+ C:\N\University\School\Java\UngDungChatDonGian\UngDungChatDonGian\src\main\java\com\simplechat\models\ChatSession.java
+Index: target/classes/com/simplechat/views/chat.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.*?>\r\n<?import javafx.scene.layout.*?>\r\n<?import javafx.scene.text.*?>\r\n<?import javafx.scene.image.*?>\r\n<?import javafx.scene.effect.DropShadow?>\r\n\r\n<AnchorPane xmlns=\"http://javafx.com/javafx/17\"\r\n            xmlns:fx=\"http://javafx.com/fxml/1\"\r\n            fx:controller=\"com.simplechat.controllers.SignInController\">\r\n\r\n    <Pane prefWidth=\"900\" prefHeight=\"600\">\r\n        <!-- Background Image -->\r\n        <ImageView fitWidth=\"900\" fitHeight=\"600\">\r\n            <image>\r\n                <Image url=\"\"/>\r\n            </image>\r\n        </ImageView>\r\n\r\n        <!-- Sign In / Sign Up Toggle -->\r\n        <Text text=\"SIGN IN\" layoutX=\"330\" layoutY=\"270\" fill=\"black\">\r\n            <font>\r\n                <Font size=\"22\" />\r\n            </font>\r\n            <effect>\r\n                <DropShadow radius=\"3\" color=\"#000000\"/>\r\n            </effect>\r\n        </Text>\r\n\r\n        <Text text=\"SIGN UP\" layoutX=\"350\" layoutY=\"310\" fill=\"#636363\" onMouseClicked=\"#openSignUp\">\r\n            <font>\r\n                <Font size=\"18\" />\r\n            </font>\r\n            <effect>\r\n                <DropShadow radius=\"3\" color=\"#888888\"/>\r\n            </effect>\r\n        </Text>\r\n\r\n        <!-- Sign In Form -->\r\n        <VBox spacing=\"15\" alignment=\"CENTER\" layoutX=\"600\" layoutY=\"200\">\r\n            <Text text=\"Welcome Back\" fill=\"#1A237E\">\r\n                <font>\r\n                    <Font size=\"26\" />\r\n                </font>\r\n            </Text>\r\n\r\n            <!-- Username -->\r\n            <HBox spacing=\"10\">\r\n                <ImageView fitWidth=\"24\" fitHeight=\"24\">\r\n                    <image>\r\n                        <Image url=\"@/images/img_4.png\"/>\r\n                    </image>\r\n                </ImageView>\r\n                <TextField fx:id=\"usernameField\" promptText=\"Username\"/>\r\n            </HBox>\r\n\r\n            <!-- Password -->\r\n            <HBox spacing=\"10\">\r\n                <ImageView fitWidth=\"24\" fitHeight=\"24\">\r\n                    <image>\r\n                        <Image url=\"@/images/img_6.png\"/>\r\n                    </image>\r\n                </ImageView>\r\n                <PasswordField fx:id=\"passwordField\" promptText=\"Password\"/>\r\n            </HBox>\r\n\r\n            <!-- Error Message -->\r\n            <Text fx:id=\"errorMessage\" text=\"\" fill=\"red\" />\r\n\r\n            <!-- Sign In Button -->\r\n            <Button text=\"Sign In\"\r\n                    onAction=\"#handleLogin\"\r\n                    style=\"-fx-background-color: #3949AB; -fx-text-fill: white; -fx-font-size: 16px;\"/>\r\n\r\n            <!-- Switch to Sign Up -->\r\n            <Label text=\"Don't have an account? Sign Up\"\r\n                   textFill=\"blue\"\r\n                   onMouseClicked=\"#openSignUp\"/>\r\n        </VBox>\r\n    </Pane>\r\n</AnchorPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/com/simplechat/views/chat.fxml b/target/classes/com/simplechat/views/chat.fxml
+--- a/target/classes/com/simplechat/views/chat.fxml	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/target/classes/com/simplechat/views/chat.fxml	(date 1745530504062)
+@@ -1,82 +1,124 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ 
++<?import java.lang.String?>
++<?import javafx.collections.FXCollections?>
++<?import javafx.geometry.Insets?>
+ <?import javafx.scene.control.*?>
++<?import javafx.scene.effect.DropShadow?>
++<?import javafx.scene.image.Image?>
++<?import javafx.scene.image.ImageView?>
+ <?import javafx.scene.layout.*?>
+-<?import javafx.scene.text.*?>
+-<?import javafx.scene.image.*?>
+-<?import javafx.scene.effect.DropShadow?>
+ 
+-<AnchorPane xmlns="http://javafx.com/javafx/17"
+-            xmlns:fx="http://javafx.com/fxml/1"
+-            fx:controller="com.simplechat.controllers.SignInController">
++<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.simplechat.controllers.ChatController">
+ 
+-    <Pane prefWidth="900" prefHeight="600">
+-        <!-- Background Image -->
+-        <ImageView fitWidth="900" fitHeight="600">
+-            <image>
+-                <Image url=""/>
+-            </image>
+-        </ImageView>
++    <Pane prefHeight="600" prefWidth="900" style="-fx-background-color: #f5f5f5;">
++        <!-- Header -->
++        <HBox prefHeight="60" prefWidth="900" style="-fx-background-color: #3949AB;">
++            <Label style="-fx-font-size: 24px;" text="Chat Application" textFill="white">
++                <padding>
++                    <Insets left="20" top="15" />
++                </padding>
++                <effect>
++                    <DropShadow color="#00000080" radius="3" />
++                </effect>
++            </Label>
+ 
+-        <!-- Sign In / Sign Up Toggle -->
+-        <Text text="SIGN IN" layoutX="330" layoutY="270" fill="black">
+-            <font>
+-                <Font size="22" />
+-            </font>
+-            <effect>
+-                <DropShadow radius="3" color="#000000"/>
+-            </effect>
+-        </Text>
++            <!-- User info and logout -->
++            <HBox alignment="CENTER_RIGHT" spacing="10" HBox.hgrow="ALWAYS">
++                <Label fx:id="usernameLabel" style="-fx-font-size: 16px;" textFill="white" />
++                <Button onAction="#handleLogout" style="-fx-background-color: #e53935; -fx-text-fill: white;" text="Logout" />
++                <padding>
++                    <Insets right="20" />
++                </padding>
++            </HBox>
++        </HBox>
++
++        <!-- Main Content -->
++        <BorderPane layoutY="60" prefHeight="540" prefWidth="900">
++            <!-- Left - Contacts and Add Friends -->
++            <left>
++                <VBox prefWidth="250" style="-fx-background-color: #e3f2fd;">
++                    <TabPane tabClosingPolicy="UNAVAILABLE">
++                        <!-- Tab 1: Contacts -->
++                        <Tab text="Contacts">
++                            <VBox>
++                                <Label style="-fx-font-size: 18px; -fx-text-fill: #1A237E; -fx-padding: 10;" text="Contacts">
++                                    <effect>
++                                        <DropShadow color="#00000040" radius="2" />
++                                    </effect>
++                                </Label>
++                                <ListView fx:id="contactsList" style="-fx-background-color: transparent; -fx-border-width: 0;" VBox.vgrow="ALWAYS" />
++                            </VBox>
++                        </Tab>
+ 
+-        <Text text="SIGN UP" layoutX="350" layoutY="310" fill="#636363" onMouseClicked="#openSignUp">
+-            <font>
+-                <Font size="18" />
+-            </font>
+-            <effect>
+-                <DropShadow radius="3" color="#888888"/>
+-            </effect>
+-        </Text>
++                        <!-- Tab 2: Add Friends -->
++                        <Tab text="Add Friends">
++                            <VBox>
++                                <Label style="-fx-font-size: 18px; -fx-text-fill: #1A237E; -fx-padding: 10;" text="Add Friends">
++                                    <effect>
++                                        <DropShadow color="#00000040" radius="2" />
++                                    </effect>
++                                </Label>
++                                <TextField fx:id="searchUserField" promptText="Search users..." />
++                                <ListView fx:id="addFriendsList" style="-fx-background-color: transparent; -fx-border-width: 0;" VBox.vgrow="ALWAYS" />
++                            </VBox>
++                        </Tab>
+ 
+-        <!-- Sign In Form -->
+-        <VBox spacing="15" alignment="CENTER" layoutX="600" layoutY="200">
+-            <Text text="Welcome Back" fill="#1A237E">
+-                <font>
+-                    <Font size="26" />
+-                </font>
+-            </Text>
++                        <!-- Tab mới: Friend Requests -->
++                        <Tab text="Friend Requests" closable="false">
++                            <VBox>
++                                <Button fx:id="refreshRequestsButton" text="Refresh" onAction="#handleRefreshRequests" style="-fx-background-color: #2196F3; -fx-text-fill: white;" />
++                                <ListView fx:id="friendRequestsList" prefHeight="300.0" prefWidth="200.0" />
++                            </VBox>
++                        </Tab>
++                    </TabPane>
++                </VBox>
++            </left>
+ 
+-            <!-- Username -->
+-            <HBox spacing="10">
+-                <ImageView fitWidth="24" fitHeight="24">
+-                    <image>
+-                        <Image url="@/images/img_4.png"/>
+-                    </image>
+-                </ImageView>
+-                <TextField fx:id="usernameField" promptText="Username"/>
+-            </HBox>
++            <!-- Center - Chat Area -->
++            <center>
++                <VBox style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 1;">
++                    <!-- Chat header -->
++                    <HBox style="-fx-background-color: #bbdefb; -fx-padding: 10;">
++                        <Label fx:id="currentChatLabel" style="-fx-font-size: 16px; -fx-text-fill: #1A237E;" text="Select a contact to chat" />
++                    </HBox>
+ 
+-            <!-- Password -->
+-            <HBox spacing="10">
+-                <ImageView fitWidth="24" fitHeight="24">
+-                    <image>
+-                        <Image url="@/images/img_6.png"/>
+-                    </image>
+-                </ImageView>
+-                <PasswordField fx:id="passwordField" promptText="Password"/>
+-            </HBox>
++                    <!-- Messages area -->
++                    <ListView fx:id="messagesList" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
++                        <items>
++                            <FXCollections fx:factory="observableArrayList">
++                                <String fx:value="Welcome to the chat!" />
++                            </FXCollections>
++                        </items>
++                    </ListView>
++
++                    <!-- Message input -->
++                    <HBox style="-fx-padding: 10; -fx-spacing: 10; -fx-background-color: #f5f5f5;">
++                        <TextField fx:id="messageInput" promptText="Type your message here..." HBox.hgrow="ALWAYS" />
++                        <Button onAction="#handleSendMessage" style="-fx-background-color: #3949AB; -fx-text-fill: white;" text="Send" />
++                    </HBox>
++                </VBox>
++            </center>
+ 
+-            <!-- Error Message -->
+-            <Text fx:id="errorMessage" text="" fill="red" />
++            <!-- Right - User details -->
++            <right>
++                <VBox prefWidth="200" style="-fx-background-color: #e3f2fd; -fx-padding: 10;">
++                    <Label style="-fx-font-size: 18px; -fx-text-fill: #1A237E;" text="My Profile">
++                        <effect>
++                            <DropShadow color="#00000040" radius="2" />
++                        </effect>
++                    </Label>
+ 
+-            <!-- Sign In Button -->
+-            <Button text="Sign In"
+-                    onAction="#handleLogin"
+-                    style="-fx-background-color: #3949AB; -fx-text-fill: white; -fx-font-size: 16px;"/>
++                    <ImageView fitHeight="100" fitWidth="100" preserveRatio="true">
++                        <Image url="@/images/img_8.png" />
++                    </ImageView>
+ 
+-            <!-- Switch to Sign Up -->
+-            <Label text="Don't have an account? Sign Up"
+-                   textFill="blue"
+-                   onMouseClicked="#openSignUp"/>
+-        </VBox>
++                    <Label fx:id="userProfileName" style="-fx-font-size: 16px; -fx-text-fill: #1A237E;" text="Username" />
++                    <Label style="-fx-font-size: 14px; -fx-text-fill: #4CAF50;" text="Status: Online" />
++
++                    <Button onAction="#handleChangeAvatar" style="-fx-background-color: #7986CB; -fx-text-fill: white; -fx-margin-top: 20;" text="Change Avatar" />
++                </VBox>
++            </right>
++        </BorderPane>
+     </Pane>
+-</AnchorPane>
++</AnchorPane>
+\ No newline at end of file
+Index: target/classes/com/simplechat/views/sign_in.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.*?>\r\n<?import javafx.scene.layout.*?>\r\n<?import javafx.scene.text.*?>\r\n<?import javafx.scene.image.*?>\r\n<?import javafx.scene.effect.DropShadow?>\r\n\r\n<AnchorPane xmlns=\"http://javafx.com/javafx/17\"\r\n            xmlns:fx=\"http://javafx.com/fxml/1\"\r\n            fx:controller=\"com.simplechat.controllers.SignInController\">\r\n\r\n    <Pane prefWidth=\"900\" prefHeight=\"600\">\r\n        <!-- Background Image -->\r\n        <ImageView fitWidth=\"900\" fitHeight=\"600\">\r\n            <image>\r\n                <Image url=\"@/images/img_9.png\"/>\r\n            </image>\r\n        </ImageView>\r\n\r\n        <!-- Sign In / Sign Up Toggle -->\r\n        <Text text=\"SIGN IN\" layoutX=\"330\" layoutY=\"270\" fill=\"black\">\r\n            <font>\r\n                <Font size=\"22\" />\r\n            </font>\r\n            <effect>\r\n                <DropShadow radius=\"3\" color=\"#000000\"/>\r\n            </effect>\r\n        </Text>\r\n\r\n        <Text text=\"SIGN UP\" layoutX=\"350\" layoutY=\"310\" fill=\"#636363\" onMouseClicked=\"#openSignUp\">\r\n            <font>\r\n                <Font size=\"18\" />\r\n            </font>\r\n            <effect>\r\n                <DropShadow radius=\"3\" color=\"#888888\"/>\r\n            </effect>\r\n        </Text>\r\n\r\n        <!-- Sign In Form -->\r\n        <VBox spacing=\"15\" alignment=\"CENTER\" layoutX=\"600\" layoutY=\"200\">\r\n            <Text text=\"Welcome Back\" fill=\"#1A237E\">\r\n                <font>\r\n                    <Font size=\"26\" />\r\n                </font>\r\n            </Text>\r\n\r\n            <!-- Username -->\r\n            <HBox spacing=\"10\">\r\n                <ImageView fitWidth=\"24\" fitHeight=\"24\">\r\n                    <image>\r\n                        <Image url=\"@/images/img_4.png\"/>\r\n                    </image>\r\n                </ImageView>\r\n                <TextField fx:id=\"usernameField\" promptText=\"Username\"/>\r\n            </HBox>\r\n\r\n            <!-- Password -->\r\n            <HBox spacing=\"10\">\r\n                <ImageView fitWidth=\"24\" fitHeight=\"24\">\r\n                    <image>\r\n                        <Image url=\"@/images/img_6.png\"/>\r\n                    </image>\r\n                </ImageView>\r\n                <PasswordField fx:id=\"passwordField\" promptText=\"Password\"/>\r\n            </HBox>\r\n\r\n            <!-- Error Message -->\r\n            <Text fx:id=\"errorMessage\" text=\"\" fill=\"red\" />\r\n\r\n            <!-- Sign In Button -->\r\n            <Button text=\"Sign In\"\r\n                    onAction=\"#handleLogin\"\r\n                    style=\"-fx-background-color: #3949AB; -fx-text-fill: white; -fx-font-size: 16px;\"/>\r\n\r\n            <!-- Switch to Sign Up -->\r\n            <Label text=\"Don't have an account? Sign Up\"\r\n                   textFill=\"blue\"\r\n                   onMouseClicked=\"#openSignUp\"/>\r\n        </VBox>\r\n    </Pane>\r\n</AnchorPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/com/simplechat/views/sign_in.fxml b/target/classes/com/simplechat/views/sign_in.fxml
+--- a/target/classes/com/simplechat/views/sign_in.fxml	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/target/classes/com/simplechat/views/sign_in.fxml	(date 1744983774714)
+@@ -13,9 +13,7 @@
+     <Pane prefWidth="900" prefHeight="600">
+         <!-- Background Image -->
+         <ImageView fitWidth="900" fitHeight="600">
+-            <image>
+-                <Image url="@/images/img_9.png"/>
+-            </image>
++            <Image url="@/images/img_9.png"/>
+         </ImageView>
+ 
+         <!-- Sign In / Sign Up Toggle -->
+@@ -48,9 +46,7 @@
+             <!-- Username -->
+             <HBox spacing="10">
+                 <ImageView fitWidth="24" fitHeight="24">
+-                    <image>
+-                        <Image url="@/images/img_4.png"/>
+-                    </image>
++                    <Image url="@/images/img_4.png"/>
+                 </ImageView>
+                 <TextField fx:id="usernameField" promptText="Username"/>
+             </HBox>
+@@ -58,15 +54,13 @@
+             <!-- Password -->
+             <HBox spacing="10">
+                 <ImageView fitWidth="24" fitHeight="24">
+-                    <image>
+-                        <Image url="@/images/img_6.png"/>
+-                    </image>
++                    <Image url="@/images/img_6.png"/>
+                 </ImageView>
+                 <PasswordField fx:id="passwordField" promptText="Password"/>
+             </HBox>
+ 
+             <!-- Error Message -->
+-            <Text fx:id="errorMessage" text="" fill="red" />
++            <Text fx:id="errorMessage" fill="red" />
+ 
+             <!-- Sign In Button -->
+             <Button text="Sign In"
+Index: src/main/java/com/simplechat/controllers/SignInController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.simplechat.controllers;\r\n\r\nimport com.simplechat.dao.userDAO;\r\nimport com.simplechat.database.Database;\r\nimport javafx.fxml.FXML;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.control.PasswordField;\r\nimport javafx.scene.control.TextField;\r\nimport javafx.scene.paint.Color;\r\nimport javafx.scene.text.Text;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.IOException;\r\nimport java.sql.Connection;\r\n\r\npublic class SignInController {\r\n    @FXML\r\n    private TextField usernameField;\r\n    @FXML\r\n    private PasswordField passwordField;\r\n    @FXML\r\n    private Text errorMessage;\r\n    @FXML\r\n    private Button signInButton;\r\n\r\n    public void setRoundedButton() {\r\n        if (signInButton != null) {\r\n            signInButton.setStyle(\"-fx-background-radius: 20px;\");\r\n        } else {\r\n            System.out.println(\"Button is null!\");\r\n        }\r\n    }\r\n\r\n    @FXML\r\n    public void initialize() {\r\n        // Bo góc cho các ô nhập liệu và nút đăng ký\r\n        setRoundedStyle(usernameField);\r\n        setRoundedStyle(passwordField);\r\n\r\n        // Xóa thông báo lỗi khi nhập lại\r\n        usernameField.setOnKeyTyped(e -> clearError());\r\n        passwordField.setOnKeyTyped(e -> clearError());\r\n    }\r\n\r\n    private void clearError() {\r\n        errorMessage.setText(\"\");\r\n    }\r\n\r\n    private void setRoundedStyle(TextField textField) {\r\n        textField.setStyle(\r\n                \"-fx-background-radius: 10px; \" +\r\n                        \"-fx-border-radius: 10px; \" +\r\n                        \"-fx-border-color: #ccc; \" +\r\n                        \"-fx-padding: 8px;\"\r\n        );\r\n    }\r\n\r\n    private void setRoundedButton(Button button) {\r\n        button.setStyle(\r\n                \"-fx-background-radius: 10px; \" +\r\n                        \"-fx-border-radius: 10px; \" +\r\n                        \"-fx-background-color: #3949AB; \" +\r\n                        \"-fx-text-fill: white; \" +\r\n                        \"-fx-font-size: 16px; \" +\r\n                        \"-fx-padding: 8px 16px;\"\r\n        );\r\n    }\r\n\r\n    @FXML\r\n    private void handleLogin() {\r\n        String username = usernameField.getText();\r\n        String password = passwordField.getText();\r\n\r\n        try(Connection conn = Database.getConnection()){\r\n            userDAO UserDAO = new userDAO(conn);\r\n            boolean success = UserDAO.validateUser(username, password);\r\n\r\n            // Kiểm tra tài khoản & mật khẩu\r\n            if (success) {\r\n                errorMessage.setText(\"Login successful!\");\r\n                errorMessage.setFill(Color.GREEN);\r\n            } else {\r\n                errorMessage.setText(\"Invalid username or password.\");\r\n                errorMessage.setFill(Color.RED);\r\n            }\r\n        } catch (Exception ignored){\r\n            errorMessage.setText(\"An error occurred during login.\");\r\n            errorMessage.setFill(Color.RED);\r\n            ignored.printStackTrace();\r\n        }\r\n    }\r\n\r\n    @FXML\r\n    private void openSignUp() throws IOException {\r\n        Stage stage = (Stage) usernameField.getScene().getWindow();\r\n        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(\"/com/simplechat/views/sign_up.fxml\"));\r\n        Scene scene = new Scene(fxmlLoader.load());\r\n        stage.setScene(scene);\r\n        stage.setTitle(\"Sign Up\");\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/simplechat/controllers/SignInController.java b/src/main/java/com/simplechat/controllers/SignInController.java
+--- a/src/main/java/com/simplechat/controllers/SignInController.java	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/src/main/java/com/simplechat/controllers/SignInController.java	(date 1745537268750)
+@@ -1,9 +1,11 @@
+ package com.simplechat.controllers;
+ 
+-import com.simplechat.dao.userDAO;
++import com.simplechat.dao.UserDAO;
+ import com.simplechat.database.Database;
++import com.simplechat.models.User;
+ import javafx.fxml.FXML;
+ import javafx.fxml.FXMLLoader;
++import javafx.scene.Parent;
+ import javafx.scene.Scene;
+ import javafx.scene.control.Button;
+ import javafx.scene.control.PasswordField;
+@@ -11,19 +13,16 @@
+ import javafx.scene.paint.Color;
+ import javafx.scene.text.Text;
+ import javafx.stage.Stage;
+-
+ import java.io.IOException;
++import java.net.URL;
+ import java.sql.Connection;
++import java.sql.SQLException;
+ 
+ public class SignInController {
+-    @FXML
+-    private TextField usernameField;
+-    @FXML
+-    private PasswordField passwordField;
+-    @FXML
+-    private Text errorMessage;
+-    @FXML
+-    private Button signInButton;
++    @FXML private TextField usernameField;
++    @FXML private PasswordField passwordField;
++    @FXML private Text errorMessage;
++    @FXML private Button signInButton;
+ 
+     public void setRoundedButton() {
+         if (signInButton != null) {
+@@ -35,11 +34,9 @@
+ 
+     @FXML
+     public void initialize() {
+-        // Bo góc cho các ô nhập liệu và nút đăng ký
+         setRoundedStyle(usernameField);
+         setRoundedStyle(passwordField);
+ 
+-        // Xóa thông báo lỗi khi nhập lại
+         usernameField.setOnKeyTyped(e -> clearError());
+         passwordField.setOnKeyTyped(e -> clearError());
+     }
+@@ -70,25 +67,60 @@
+ 
+     @FXML
+     private void handleLogin() {
+-        String username = usernameField.getText();
+-        String password = passwordField.getText();
++        String username = usernameField.getText().trim();
++        String password = passwordField.getText().trim();
++
++        if (username.isEmpty() || password.isEmpty()) {
++            errorMessage.setText("Please enter username and password.");
++            errorMessage.setFill(Color.RED);
++            return;
++        }
+ 
+-        try(Connection conn = Database.getConnection()){
+-            userDAO UserDAO = new userDAO(conn);
+-            boolean success = UserDAO.validateUser(username, password);
++        try (Connection conn = Database.getConnection()) {
++            UserDAO userDAO = new UserDAO(conn);
++            boolean success = userDAO.validateUser(username, password);
+ 
+-            // Kiểm tra tài khoản & mật khẩu
+             if (success) {
++                User user = userDAO.getUserByUsername(username);
++                if (user == null || user.getUserID() == null) {
++                    errorMessage.setText("User not found or invalid user ID.");
++                    errorMessage.setFill(Color.RED);
++                    return;
++                }
++                System.out.println("Login successful: username=" + username + ", userID=" + user.getUserID());
+                 errorMessage.setText("Login successful!");
+                 errorMessage.setFill(Color.GREEN);
++
++                try {
++                    URL fxmlUrl = getClass().getResource("/com/simplechat/views/chat.fxml");
++                    if (fxmlUrl == null) {
++                        throw new IOException("Cannot find FXML file at: /com/simplechat/views/chat.fxml");
++                    }
++
++                    FXMLLoader loader = new FXMLLoader(fxmlUrl);
++                    Parent root = loader.load();
++
++                    ChatController controller = loader.getController();
++                    controller.setUsername(username);
++                    controller.setCurrentUserId(user.getUserID());
++
++                    Stage stage = (Stage) usernameField.getScene().getWindow();
++                    stage.setScene(new Scene(root));
++                    stage.setTitle("Chat App - " + username.toUpperCase());
++
++                } catch (Exception e) {
++                    errorMessage.setText("Error: " + e.getMessage());
++                    errorMessage.setFill(Color.RED);
++                    e.printStackTrace();
++                }
+             } else {
+                 errorMessage.setText("Invalid username or password.");
+                 errorMessage.setFill(Color.RED);
+             }
+-        } catch (Exception ignored){
+-            errorMessage.setText("An error occurred during login.");
++        } catch (SQLException e) {
++            errorMessage.setText("An error occurred during login: " + e.getMessage());
+             errorMessage.setFill(Color.RED);
+-            ignored.printStackTrace();
++            e.printStackTrace();
+         }
+     }
+ 
+@@ -100,4 +132,4 @@
+         stage.setScene(scene);
+         stage.setTitle("Sign Up");
+     }
+-}
++}
+\ No newline at end of file
+Index: src/main/java/com/simplechat/database/Database.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.simplechat.database;\r\n\r\nimport java.sql.Connection;\r\nimport java.sql.DriverManager;\r\nimport java.sql.SQLException;\r\n\r\npublic class Database {\r\n    private final static String URL = \"jdbc:sqlserver://localhost:1433;databaseName=ChatApp;encrypt=true;trustServerCertificate=true\";\r\n    private final static String USER = \"sa\"; // Thay bằng username SQL Server\r\n    private final static String PASSWORD = \"htq@12a2sqlserver\"; // Thay bằng mật khẩu SQL Server\r\n    private static Connection connection;\r\n\r\n    // Lấy kết nối\r\n    public static Connection getConnection() {\r\n        try{\r\n            if (connection == null || connection.isClosed()) {\r\n                connection = DriverManager.getConnection(URL, USER, PASSWORD);\r\n            }\r\n            return connection;\r\n        } catch (SQLException e){\r\n            System.err.println(\"Error while getting the database connection: \" + e.getMessage());\r\n            e.printStackTrace(); // in chi tiết lỗi\r\n            return null;\r\n        }\r\n    }\r\n\r\n    // Đóng kết nối\r\n    public static void closeConnection() {\r\n        try{\r\n            if (connection != null && !connection.isClosed()) {\r\n                connection.close();\r\n            }\r\n        } catch (SQLException e){\r\n            System.err.println(\"Error while closing the database connection: \" + e.getMessage());\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    public void saveUser(){\r\n\r\n    }\r\n\r\n    public void saveMessage(){\r\n\r\n    }\r\n\r\n    public void getUser(){\r\n\r\n    }\r\n\r\n    public void getMessage(){\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/simplechat/database/Database.java b/src/main/java/com/simplechat/database/Database.java
+--- a/src/main/java/com/simplechat/database/Database.java	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/src/main/java/com/simplechat/database/Database.java	(date 1745582030741)
+@@ -5,50 +5,35 @@
+ import java.sql.SQLException;
+ 
+ public class Database {
+-    private final static String URL = "jdbc:sqlserver://localhost:1433;databaseName=ChatApp;encrypt=true;trustServerCertificate=true";
+-    private final static String USER = "sa"; // Thay bằng username SQL Server
+-    private final static String PASSWORD = "htq@12a2sqlserver"; // Thay bằng mật khẩu SQL Server
+     private static Connection connection;
+ 
+     // Lấy kết nối
+     public static Connection getConnection() {
+-        try{
++        try {
+             if (connection == null || connection.isClosed()) {
+-                connection = DriverManager.getConnection(URL, USER, PASSWORD);
++                String url = "jdbc:sqlserver://localhost:1433;databaseName=ChatApp;encrypt=true;trustServerCertificate=true";
++                String user = "sa";
++                String password = "htq@12a2sqlserver";
++                connection = DriverManager.getConnection(url, user, password);
++                System.out.println("Database connection established.");
+             }
+             return connection;
+-        } catch (SQLException e){
+-            System.err.println("Error while getting the database connection: " + e.getMessage());
+-            e.printStackTrace(); // in chi tiết lỗi
++        } catch (SQLException e) {
++            System.err.println("Error establishing connection: " + e.getMessage());
++            e.printStackTrace();
+             return null;
+         }
+     }
+ 
+     // Đóng kết nối
+     public static void closeConnection() {
+-        try{
++        try {
+             if (connection != null && !connection.isClosed()) {
+                 connection.close();
++                System.out.println("Database connection closed.");
+             }
+-        } catch (SQLException e){
+-            System.err.println("Error while closing the database connection: " + e.getMessage());
++        } catch (SQLException e) {
+             e.printStackTrace();
+         }
+     }
+-
+-    public void saveUser(){
+-
+-    }
+-
+-    public void saveMessage(){
+-
+-    }
+-
+-    public void getUser(){
+-
+-    }
+-
+-    public void getMessage(){
+-
+-    }
+ }
+Index: src/main/java/com/simplechat/controllers/SignUpController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.simplechat.controllers;\r\n\r\nimport com.simplechat.dao.userDAO;\r\nimport com.simplechat.database.Database;\r\nimport com.simplechat.models.User;\r\nimport javafx.fxml.FXML;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.control.PasswordField;\r\nimport javafx.scene.control.TextField;\r\nimport javafx.scene.paint.Color;\r\nimport javafx.scene.text.Text;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.IOException;\r\nimport java.sql.Connection;\r\nimport java.sql.SQLException;\r\n\r\npublic class SignUpController {\r\n    @FXML\r\n    private Text errorMessage;\r\n    @FXML\r\n    private TextField usernameField;\r\n    @FXML\r\n    private TextField emailField;\r\n    @FXML\r\n    private PasswordField passwordField;\r\n    @FXML\r\n    private PasswordField confirmPasswordField;\r\n    @FXML\r\n    private Button signUpButton;\r\n\r\n    @FXML\r\n    public void initialize() {\r\n        // Bo góc cho các ô nhập liệu và nút đăng ký\r\n        setRoundedStyle(usernameField);\r\n        setRoundedStyle(passwordField);\r\n        setRoundedStyle(emailField);\r\n        setRoundedStyle(confirmPasswordField);\r\n        setRoundedButton(signUpButton);\r\n\r\n        // Xóa thông báo lỗi khi nhập lại\r\n        usernameField.setOnKeyTyped(e -> clearError());\r\n        passwordField.setOnKeyTyped(e -> clearError());\r\n        confirmPasswordField.setOnKeyTyped(e -> clearError());\r\n    }\r\n\r\n    private void setRoundedStyle(TextField textField) {\r\n        textField.setStyle(\r\n                \"-fx-background-radius: 10px; \" +\r\n                        \"-fx-border-radius: 10px; \" +\r\n                        \"-fx-border-color: #ccc; \" +\r\n                        \"-fx-padding: 8px;\"\r\n        );\r\n    }\r\n\r\n    private void setRoundedButton(Button button) {\r\n        button.setStyle(\r\n                \"-fx-background-radius: 10px; \" +\r\n                        \"-fx-border-radius: 10px; \" +\r\n                        \"-fx-background-color: #3949AB; \" +\r\n                        \"-fx-text-fill: white; \" +\r\n                        \"-fx-font-size: 16px; \" +\r\n                        \"-fx-padding: 8px 16px;\"\r\n        );\r\n    }\r\n\r\n    private void clearError() {\r\n        errorMessage.setText(\"\");\r\n    }\r\n\r\n    @FXML\r\n    private void handleSignUp() throws SQLException {\r\n        String username = usernameField.getText().trim();\r\n        String password = passwordField.getText().trim();\r\n        String email = emailField.getText().trim();\r\n        String confirmPassword = confirmPasswordField.getText();\r\n\r\n        if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {\r\n            showError(\"Please fill in all fields.\");\r\n            return;\r\n        } else if (password.length() < 6) {\r\n            showError(\"Password must be at least 6 characters.\");\r\n            return;\r\n        } else if (!password.equals(confirmPassword)) {\r\n            showError(\"Passwords do not match.\");\r\n            return;\r\n        }\r\n\r\n        User user = new User(username, email, password);\r\n\r\n        try(Connection conn = Database.getConnection()) {\r\n            userDAO UserDAO = new userDAO(conn);\r\n            boolean success = UserDAO.addUser(user);\r\n\r\n            if(success){\r\n                showSuccess(\"Sign in successful!\");\r\n                openSignIn();\r\n            }\r\n            else{\r\n                showError(\"Sign in failed. Try again.\");\r\n            }\r\n        } catch (Exception e) {\r\n            showError(\"Error: \" + e.getMessage());\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    private void showError(String message) {\r\n        errorMessage.setText(message);\r\n        errorMessage.setFill(Color.RED);\r\n    }\r\n\r\n    private void showSuccess(String message) {\r\n        errorMessage.setText(message);\r\n        errorMessage.setFill(Color.GREEN);\r\n    }\r\n\r\n    @FXML\r\n    private void openSignIn() throws IOException {\r\n        Stage stage = (Stage) usernameField.getScene().getWindow();\r\n        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(\"/com/simplechat/views/sign_in.fxml\"));\r\n        Scene scene = new Scene(fxmlLoader.load());\r\n        stage.setScene(scene);\r\n        stage.setTitle(\"Sign In\");\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/simplechat/controllers/SignUpController.java b/src/main/java/com/simplechat/controllers/SignUpController.java
+--- a/src/main/java/com/simplechat/controllers/SignUpController.java	(revision a201800ba55e94fb7b515d7d466a1d3e7d8ffe01)
++++ b/src/main/java/com/simplechat/controllers/SignUpController.java	(date 1744993761433)
+@@ -1,6 +1,6 @@
+ package com.simplechat.controllers;
+ 
+-import com.simplechat.dao.userDAO;
++import com.simplechat.dao.UserDAO;
+ import com.simplechat.database.Database;
+ import com.simplechat.models.User;
+ import javafx.fxml.FXML;
+@@ -91,7 +91,7 @@
+         User user = new User(username, email, password);
+ 
+         try(Connection conn = Database.getConnection()) {
+-            userDAO UserDAO = new userDAO(conn);
++            UserDAO UserDAO = new UserDAO(conn);
+             boolean success = UserDAO.addUser(user);
+ 
+             if(success){

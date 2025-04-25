@@ -1,0 +1,49 @@
+<changelist name="Uncommitted_changes_before_Update_at_25_04_2025_8_36_CH_[Changes]" date="1745588214226" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_04_2025_8_36_CH_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 25/04/2025 8:36 CH [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/simplechat/models/User.class" />
+    <option name="AFTER_PATH" value="target/classes/com/simplechat/models/User.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_04_2025_8_36_CH_[Changes]/User.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/simplechat/MainApp.class" />
+    <option name="AFTER_PATH" value="target/classes/com/simplechat/MainApp.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_04_2025_8_36_CH_[Changes]/MainApp.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/simplechat/models/Message.class" />
+    <option name="AFTER_PATH" value="target/classes/com/simplechat/models/Message.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_04_2025_8_36_CH_[Changes]/Message.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/simplechat/controllers/SignUpController.class" />
+    <option name="AFTER_PATH" value="target/classes/com/simplechat/controllers/SignUpController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_04_2025_8_36_CH_[Changes]/SignUpController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/simplechat/models/ChatSession.class" />
+    <option name="AFTER_PATH" value="target/classes/com/simplechat/models/ChatSession.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_04_2025_8_36_CH_[Changes]/ChatSession.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/simplechat/dao/userDAO.class" />
+    <option name="AFTER_PATH" value="target/classes/com/simplechat/dao/userDAO.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_04_2025_8_36_CH_[Changes]/userDAO.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/simplechat/controllers/SignInController.class" />
+    <option name="AFTER_PATH" value="target/classes/com/simplechat/controllers/SignInController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_04_2025_8_36_CH_[Changes]/SignInController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/simplechat/database/Database.class" />
+    <option name="AFTER_PATH" value="target/classes/com/simplechat/database/Database.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_04_2025_8_36_CH_[Changes]/Database.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/simplechat/models/RealTimeService.class" />
+    <option name="AFTER_PATH" value="target/classes/com/simplechat/models/RealTimeService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_04_2025_8_36_CH_[Changes]/RealTimeService.class" />
+  </binary>
+</changelist>
