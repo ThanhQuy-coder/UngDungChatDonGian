@@ -73,22 +73,46 @@ public class SignInController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        try(Connection conn = Database.getConnection()){
-            userDAO UserDAO = new userDAO(conn);
-            boolean success = UserDAO.validateUser(username, password);
+        try (Connection conn = Database.getConnection()) {
+            userDAO userDAO = new userDAO(conn);
+            boolean success = userDAO.validateUser(username, password);
 
-            // Kiểm tra tài khoản & mật khẩu
             if (success) {
                 errorMessage.setText("Login successful!");
                 errorMessage.setFill(Color.GREEN);
+
+                // Load chat.fxml
+                Stage stage = (Stage) usernameField.getScene().getWindow();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/simplechat/views/chat.fxml"));
+
+                // Check if FXML file exists
+                if (fxmlLoader.getLocation() == null) {
+                    throw new IOException("Cannot find chat.fxml");
+                }
+
+                Scene scene = new Scene(fxmlLoader.load());
+
+                // Get ChatController instance to initialize it
+                ChatController chatController = fxmlLoader.getController();
+                if (chatController != null) {
+                    chatController.setUsername(username); // Pass username to ChatController
+                }
+
+                stage.setScene(scene);
+                stage.setTitle("App Chat");
+                stage.show();
             } else {
                 errorMessage.setText("Invalid username or password.");
                 errorMessage.setFill(Color.RED);
             }
-        } catch (Exception ignored){
+        } catch (IOException e) {
+            errorMessage.setText("Error loading chat interface.");
+            errorMessage.setFill(Color.RED);
+            e.printStackTrace();
+        } catch (Exception e) {
             errorMessage.setText("An error occurred during login.");
             errorMessage.setFill(Color.RED);
-            ignored.printStackTrace();
+            e.printStackTrace();
         }
     }
 
