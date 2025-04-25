@@ -57,17 +57,6 @@ public class SignInController {
         );
     }
 
-    private void setRoundedButton(Button button) {
-        button.setStyle(
-                "-fx-background-radius: 10px; " +
-                        "-fx-border-radius: 10px; " +
-                        "-fx-background-color: #3949AB; " +
-                        "-fx-text-fill: white; " +
-                        "-fx-font-size: 16px; " +
-                        "-fx-padding: 8px 16px;"
-        );
-    }
-
     @FXML
     private void handleLogin() {
         String username = usernameField.getText();
@@ -81,34 +70,23 @@ public class SignInController {
                 errorMessage.setText("Login successful!");
                 errorMessage.setFill(Color.GREEN);
 
-                // Load chat.fxml
-                Stage stage = (Stage) usernameField.getScene().getWindow();
+                // Chuyển đến chat.fxml
+                Stage stage = (Stage) usernameField.getScene().getWindow(); // Lấy stage hiện tại
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/simplechat/views/chat.fxml"));
-
-                // Check if FXML file exists
-                if (fxmlLoader.getLocation() == null) {
-                    throw new IOException("Cannot find chat.fxml");
-                }
-
                 Scene scene = new Scene(fxmlLoader.load());
 
-                // Get ChatController instance to initialize it
+                // Gửi username vào ChatController (nếu cần)
                 ChatController chatController = fxmlLoader.getController();
-                if (chatController != null) {
-                    chatController.setUsername(username); // Pass username to ChatController
-                }
+                chatController.setUsername(username);
 
+                // Đặt giao diện mới
                 stage.setScene(scene);
-                stage.setTitle("App Chat");
+                stage.setTitle("Chat Application");
                 stage.show();
             } else {
                 errorMessage.setText("Invalid username or password.");
                 errorMessage.setFill(Color.RED);
             }
-        } catch (IOException e) {
-            errorMessage.setText("Error loading chat interface.");
-            errorMessage.setFill(Color.RED);
-            e.printStackTrace();
         } catch (Exception e) {
             errorMessage.setText("An error occurred during login.");
             errorMessage.setFill(Color.RED);
