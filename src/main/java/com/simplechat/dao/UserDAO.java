@@ -7,12 +7,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-public class userDAO {
-    private Connection conn;
+public class UserDAO {
+    private final Connection conn;
 
-    public userDAO(Connection conn){
+    public UserDAO(Connection conn){
         this.conn = conn;
     }
 
@@ -32,7 +34,7 @@ public class userDAO {
     }
 
     public boolean validateUser(String username, String password) throws SQLException{
-        String sql = "SELECT password FROM users WHERE username = ?";
+        String sql = "SELECT password FROM Users WHERE username = ?";
         try(PreparedStatement stmt = conn.prepareStatement(sql)){
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
@@ -46,5 +48,29 @@ public class userDAO {
             }
         }
         return false;
+    }
+
+    public String getUserIdByEmail(String email) throws SQLException {
+        String sql = "SELECT userID FROM Users WHERE email=?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) { // conn phải được khởi tạo từ DAO
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("userID"); // Trả về userID nếu có
+            }
+        }
+        throw new SQLException("Không tìm thấy userID với email: " + email); // Báo lỗi nếu không thấy email
+    }
+
+    public String getEmailByUsername(String username) throws SQLException {
+        String sql = "SELECT email FROM Users WHERE username=?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()){
+                return rs.getString("email");
+            }
+        }
+        throw new SQLException("Không tìm thấy email với username: " + username);
     }
 }

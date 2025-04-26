@@ -1,6 +1,6 @@
 package com.simplechat.controllers;
 
-import com.simplechat.dao.userDAO;
+import com.simplechat.dao.UserDAO;
 import com.simplechat.database.Database;
 import com.simplechat.models.User;
 import javafx.fxml.FXML;
@@ -91,7 +91,7 @@ public class SignUpController {
         User user = new User(username, email, password);
 
         try(Connection conn = Database.getConnection()) {
-            userDAO UserDAO = new userDAO(conn);
+            UserDAO UserDAO = new UserDAO(conn);
             boolean success = UserDAO.addUser(user);
 
             if(success){

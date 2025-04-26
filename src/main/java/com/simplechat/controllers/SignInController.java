@@ -1,6 +1,6 @@
 package com.simplechat.controllers;
 
-import com.simplechat.dao.userDAO;
+import com.simplechat.dao.UserDAO;
 import com.simplechat.database.Database;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,7 +63,7 @@ public class SignInController {
         String password = passwordField.getText();
 
         try (Connection conn = Database.getConnection()) {
-            userDAO userDAO = new userDAO(conn);
+            UserDAO userDAO = new UserDAO(conn);
             boolean success = userDAO.validateUser(username, password);
 
             if (success) {
@@ -75,9 +75,10 @@ public class SignInController {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/simplechat/views/chat.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
 
-                // Gửi username vào ChatController (nếu cần)
+                // Gửi username, currentEmail vào ChatController (nếu cần)
                 ChatController chatController = fxmlLoader.getController();
                 chatController.setUsername(username);
+                chatController.setEmail(userDAO.getEmailByUsername(username));
 
                 // Đặt giao diện mới
                 stage.setScene(scene);
