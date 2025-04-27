@@ -13,9 +13,7 @@
     <Pane prefWidth="900" prefHeight="600">
         <!-- Background Image -->
         <ImageView fitWidth="900" fitHeight="600">
-            <image>
-                <Image url="@/images/img_9.png"/>
-            </image>
+            <Image url="@/images/img_9.png"/>
         </ImageView>
 
         <!-- Sign In / Sign Up Toggle -->
@@ -48,9 +46,7 @@
             <!-- Username -->
             <HBox spacing="10">
                 <ImageView fitWidth="24" fitHeight="24">
-                    <image>
-                        <Image url="@/images/img_4.png"/>
-                    </image>
+                    <Image url="@/images/img_4.png"/>
                 </ImageView>
                 <TextField fx:id="usernameField" promptText="Username"/>
             </HBox>
@@ -58,15 +54,13 @@
             <!-- Password -->
             <HBox spacing="10">
                 <ImageView fitWidth="24" fitHeight="24">
-                    <image>
-                        <Image url="@/images/img_6.png"/>
-                    </image>
+                    <Image url="@/images/img_6.png"/>
                 </ImageView>
-                <PasswordField fx:id="passwordField" promptText="Password"/>
+                <PasswordField fx:id="passwordField" promptText="Password" onKeyPressed="#handleEnterPressed"/>
             </HBox>
 
             <!-- Error Message -->
-            <Text fx:id="errorMessage" text="" fill="red" />
+            <Text fx:id="errorMessage" fill="red" />
 
             <!-- Sign In Button -->
             <Button text="Sign In"

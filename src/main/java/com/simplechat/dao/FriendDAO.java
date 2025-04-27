@@ -56,7 +56,7 @@ public class FriendDAO {
         }
     }
 
-    // Kiểm tra trạng thái
+    // Kiểm tra điều kiện kết bạn
     public String checkFriendStatus(String userId1, String userId2) throws SQLException {
         if (userId1.equals(userId2)) {
             System.err.println("You are friends with yourself");
@@ -73,6 +73,24 @@ public class FriendDAO {
             if(rs.next()){
                 return rs.getString("status");
             }
+        }
+        return null;
+    }
+
+    // Kiểm tra trạng thái kết bạn
+    public String checkFriendshipStatus(String userId1, String userId2) throws SQLException {
+        String sql = "SELECT status FROM Friendships WHERE (userID1=? AND userID2=?) OR (userID1=? AND userID2=?)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setString(1, userId1);
+            stmt.setString(2, userId2);
+            stmt.setString(3, userId2);
+            stmt.setString(4, userId1);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                return rs.getString("status");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return null;
     }

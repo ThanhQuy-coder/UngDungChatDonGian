@@ -85,4 +85,16 @@ public class UserDAO {
         }
         throw new SQLException("Username with email not found: " + email);
     }
+
+    public String getUsernameByID(String userID) throws SQLException {
+        String sql = "SELECT username FROM Users WHERE userID=?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setString(1, userID);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()){
+                return rs.getString("username");
+            }
+        }
+        throw new SQLException("Username with email not found: " + userID);
+    }
 }

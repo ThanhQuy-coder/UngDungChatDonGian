@@ -70,12 +70,16 @@
                         <VBox fx:id="requestsPane" visible="false" managed="false">
                             <Button text="Gửi lời mời kết bạn" onAction="#handleSendFriendRequest"
                                     style="-fx-background-color: #3949AB; -fx-text-fill: white; -fx-padding: 5 10;"/>
+                            <Button text="Refresh" onAction="#handleRefreshRequests"
+                                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding: 5 10;"/>
                             <ListView fx:id="requestsList" style="-fx-background-color: transparent; -fx-border-width: 0;" />
                         </VBox>
 
                         <!-- Sent -->
                         <VBox fx:id="sentPane" visible="false" managed="false">
                             <Label text="Lời mời đã gửi:" style="-fx-padding: 10; -fx-font-weight: bold;" />
+                            <Button text="Refresh" onAction="#handleRefreshSent"
+                                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding: 5 10;"/>
                             <ListView fx:id="sentRequestsList" style="-fx-background-color: transparent; -fx-border-width: 0;" />
                         </VBox>
                     </StackPane>

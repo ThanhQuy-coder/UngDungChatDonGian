@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-    private final static String URL = "jdbc:sqlserver://localhost:1433;databaseName=ChatApp;encrypt=true;trustServerCertificate=true";
+    private final static String URL = "jdbc:sqlserver://192.168.1.10:1433;databaseName=ChatApp;encrypt=true;trustServerCertificate=true";
     private final static String USER = "sa"; // Thay bằng username SQL Server
     private final static String PASSWORD = "htq@12a2sqlserver"; // Thay bằng mật khẩu SQL Server
     private static Connection connection;

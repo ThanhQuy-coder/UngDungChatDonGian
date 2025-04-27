@@ -49,6 +49,7 @@ public class MessageDAO {
 
         // Tìm session giữa sender và receiver
         String sessionId = new ChatSessionDAO(conn).getOrCreateSession(senderId, receiverId);
+        UserDAO userDAO = new UserDAO(conn);
 
         // Lấy tin nhắn dựa trên sessionID
         String sql = "SELECT content, senderID FROM Messages WHERE sessionID = ? ORDER BY timestamp";
@@ -61,7 +62,7 @@ public class MessageDAO {
                 String sender = rs.getString("senderID");
 
                 // Format tin nhắn - phân biệt sender và receiver
-                String display = sender.equals(senderId) ? "You: " + content : "Friend: " + content;
+                String display = sender.equals(senderId) ? userDAO.getUsernameByID(senderId) + ": " + content : userDAO.getUsernameByID(receiverId) + ": " + content;
 
                 // Thêm tin nhắn vào danh sách
                 messages.add(display);

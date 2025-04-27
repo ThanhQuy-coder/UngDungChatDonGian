@@ -5,6 +5,9 @@ import com.simplechat.dao.FriendDAO;
 import com.simplechat.dao.MessageDAO;
 import com.simplechat.dao.UserDAO;
 import com.simplechat.database.Database;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -16,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -41,6 +45,10 @@ public class ChatController {
 
     private String currentEmail;
     private String currentContact;
+    private Timeline refreshTimeline;
+    private String currentChatContactId; // ID của người bạn đang trò chuyện
+    private String currentUserId; // ID của người dùng hiện tại
+
 
     private boolean sendFriendRequest(String receiverEmail) throws SQLException {
         try (Connection conn = Database.getConnection()){
@@ -83,19 +91,79 @@ public class ChatController {
         // Tab mặc định
         showContactsTab();
 
-        if (currentEmail != null) {
-            showFriendRequests(currentEmail);
-        }
+        // Listener cho danh sách bạn bè (contactsList)
+        contactsList.setOnMouseClicked(event -> {
+            // Lấy giá trị được chọn
+            String selectedContact = contactsList.getSelectionModel().getSelectedItem();
 
-
-        contactsList.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
-                currentContact = newVal.split(" ")[0];
-                currentChatLabel.setText("Chat with " + currentContact);
-
-                loadChatHistory(currentContact);
+            if (selectedContact != null) {
+                currentContact = selectedContact; // Cập nhật currentContact
+                currentChatLabel.setText("Chat với: " + currentContact); // Hiển thị thông tin
+                System.out.println("Current Contact Selected: " + currentContact); // Debug log
+                try {
+                    setUserContext();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
+
+
+        // Khởi tạo timeline chỉ khi currentContact hợp lệ
+        refreshTimeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
+            if (currentContact != null && !currentContact.isEmpty()) {
+                refreshChatMessages();
+            }
+        }));
+        refreshTimeline.setCycleCount(Timeline.INDEFINITE);
+        refreshTimeline.play();
+    }
+
+    /**
+     * Thiết lập thông tin người dùng hiện tại và danh bạ đang trò chuyện.
+     */
+    public void setUserContext() throws SQLException {
+        Connection conn = Database.getConnection();
+        UserDAO userDAO = new UserDAO(conn);
+        this.currentUserId = userDAO.getUserIdByEmail(currentEmail);
+        this.currentChatContactId = userDAO.getUserIdByEmail(userDAO.getEmailByUsername(currentContact));
+
+        // Tải lại lịch sử tin nhắn ngay khi thay đổi danh bạ
+        refreshChatMessages();
+    }
+
+    private void refreshChatMessages() {
+        if (currentUserId == null || currentChatContactId == null) {
+            System.err.println("User ID or Contact ID is not set.");
+            return;
+        }
+
+        try (Connection conn = Database.getConnection()) {
+            MessageDAO messageDAO = new MessageDAO(conn);
+
+            // Lấy tin nhắn trong cuộc trò chuyện giữa currentUserId và currentChatContactId
+            List<String> messages = messageDAO.loadMessages(currentUserId, currentChatContactId);
+
+            // Cập nhật giao diện với các tin nhắn
+            messagesList.getItems().clear();
+            messagesList.getItems().addAll(messages);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void stopAutoReload() {
+        if (refreshTimeline != null) {
+            refreshTimeline.stop();
+        }
+    }
+
+    @FXML
+    private void startAutoReload() {
+        if (refreshTimeline != null) {
+            refreshTimeline.play();
+        }
     }
 
     public void setUsername(String username) {
@@ -109,6 +177,7 @@ public class ChatController {
     }
 
     private void showFriendRequests(String currentEmail) {
+
         requestsList.getItems().clear();
         List<String> listFriendRequests;
 
@@ -131,8 +200,10 @@ public class ChatController {
             acceptBtn.setOnAction(event -> {
                 System.out.println("Yes: " + nameEmail);
                 try {
-                    if (acceptFriendRequest(nameEmail)){
+                    boolean success = acceptFriendRequest(nameEmail);
+                    if (success){
                         System.out.println("Friend request accepted successfully!");
+                        showAlert(Alert.AlertType.INFORMATION, "Success", "Friend request accepted successfully!");
 
                         // Tạo phiên trò chuyện
                         try (Connection conn = Database.getConnection()) {
@@ -149,6 +220,7 @@ public class ChatController {
                         requestsList.getItems().remove(nameLabel.getParent());
                     }
                     else {
+                        showAlert(Alert.AlertType.ERROR, "Error", "Friend request accepted incorrectly!");
                         System.out.println("Friend request accepted incorrectly");
                     }
                 } catch (SQLException e) {
@@ -161,11 +233,15 @@ public class ChatController {
             declineBtn.setOnAction(event -> {
                 System.out.println("No: " + nameEmail);
                 try {
-                    if (declineFriendRequest(nameEmail)){
+                    boolean success = declineFriendRequest(nameEmail);
+                    if (success){
                         System.out.println("Friend request declined successfully!");
+                        showAlert(Alert.AlertType.INFORMATION, "Success", "Friend request declined successfully!");
+
                         requestsList.getItems().remove(nameLabel.getParent());
                     }
                     else {
+                        showAlert(Alert.AlertType.ERROR, "Error", "Friend request declined incorrectly!");
                         System.out.println("Friend request declined incorrectly!");
                     }
                 } catch (SQLException e) {
@@ -210,8 +286,10 @@ public class ChatController {
                     UserDAO userDAO = new UserDAO(conn);
                     if(friendDAO.cancelSentRequest(userDAO.getUserIdByEmail(this.currentEmail), userDAO.getUserIdByEmail(nameEmail))) {
                         System.out.println("Friend request canceled successfully!");
+                        showAlert(Alert.AlertType.INFORMATION, "Success", "Friend request canceled successfully!");
                     }
                     else {
+                        showAlert(Alert.AlertType.ERROR, "Error", "Friend request canceled incorrectly!");
                         System.out.println("Friend request canceled incorrectly!");
                     }
                 } catch (SQLException e) {
@@ -296,7 +374,7 @@ public class ChatController {
         String message = messageInput.getText().trim();
 
         if (!message.isEmpty() && currentContact != null) {
-            messagesList.getItems().add("You: " + message);
+            messagesList.getItems().add(userProfileName + ": " + message);
             messageInput.clear();
             // TODO: Gửi tin nhắn
             try {
@@ -327,6 +405,7 @@ public class ChatController {
 
     @FXML
     private void handleLogout() {
+        stopAutoReload();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/simplechat/views/sign_in.fxml"));
             Parent root = loader.load();
@@ -343,26 +422,6 @@ public class ChatController {
     private void handleChangeAvatar() {
         // TODO: Implement avatar change
         System.out.println("Change Avatar clicked");
-    }
-
-    private void loadChatHistory(String contact) {
-        messagesList.getItems().clear();
-        // TODO: Load từ database/service
-        try (Connection conn = Database.getConnection()){
-            MessageDAO messageDAO = new MessageDAO(conn);
-            UserDAO userDAO = new UserDAO(conn);
-            String currentContactEmail = userDAO.getEmailByUsername(contact);
-            // Lấy danh sách tin nhắn
-            List<String> messages = messageDAO.loadMessages(
-                    userDAO.getUserIdByEmail(currentEmail),
-                    userDAO.getUserIdByEmail(currentContactEmail)
-            );
-
-            // Thêm tin nhắn vào giao diện
-            messagesList.getItems().addAll(messages);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
@@ -385,6 +444,7 @@ public class ChatController {
         sentTabBtn.setStyle("-fx-background-color: transparent; -fx-font-weight: normal; -fx-border-color: transparent; -fx-border-width: 0 0 2 0;");
 
         showFriends(currentEmail);
+        startAutoReload();
     }
 
     @FXML
@@ -402,6 +462,7 @@ public class ChatController {
         sentTabBtn.setStyle("-fx-background-color: transparent; -fx-font-weight: normal; -fx-border-color: transparent; -fx-border-width: 0 0 2 0;");
 
         showFriendRequests(currentEmail);
+        stopAutoReload();
     }
 
     public void showSentTab() {
@@ -419,6 +480,7 @@ public class ChatController {
 
         // Gọi hàm hiển thị danh sách đã gửi (sử dụng email của người dùng hiện tại)
         showSentFriendRequests(currentEmail);
+        stopAutoReload();
     }
 
     private void showAlert(Alert.AlertType type, String title, String message) {
@@ -429,4 +491,11 @@ public class ChatController {
         alert.showAndWait();
     }
 
+    public void handleRefreshRequests(ActionEvent actionEvent) {
+        showFriendRequests(currentEmail);
+    }
+
+    public void handleRefreshSent(ActionEvent actionEvent) {
+        showSentFriendRequests(currentEmail);
+    }
 }
