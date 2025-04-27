@@ -2,9 +2,9 @@ package com.simplechat.models;
 
 public class User {
     private String userID;
-    private String username;
-    private String email;
-    private String password;
+    private final String username;
+    private final String email;
+    private final String password;
     private String status;
 
     public User(String username, String email, String password){

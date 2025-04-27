@@ -59,7 +59,7 @@ public class UserDAO {
                 return rs.getString("userID"); // Trả về userID nếu có
             }
         }
-        throw new SQLException("Không tìm thấy userID với email: " + email); // Báo lỗi nếu không thấy email
+        throw new SQLException("User ID not found with email: " + email); // Báo lỗi nếu không thấy email
     }
 
     public String getEmailByUsername(String username) throws SQLException {
@@ -71,6 +71,18 @@ public class UserDAO {
                 return rs.getString("email");
             }
         }
-        throw new SQLException("Không tìm thấy email với username: " + username);
+        throw new SQLException("Email with username not found: " + username);
+    }
+
+    public String getUsernameByEmail(String email) throws SQLException {
+        String sql = "SELECT username FROM Users WHERE email=?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()){
+                return rs.getString("username");
+            }
+        }
+        throw new SQLException("Username with email not found: " + email);
     }
 }

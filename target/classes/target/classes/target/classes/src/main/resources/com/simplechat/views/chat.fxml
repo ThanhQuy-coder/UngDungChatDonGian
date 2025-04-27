@@ -63,17 +63,7 @@
                     <StackPane fx:id="tabContent" VBox.vgrow="ALWAYS">
                         <!-- Contacts -->
                         <VBox fx:id="contactsPane">
-                            <ListView fx:id="contactsList" style="-fx-background-color: transparent; -fx-border-width: 0;">
-                                <items>
-                                    <FXCollections fx:factory="observableArrayList">
-                                        <String fx:value="John Doe (online)" />
-                                        <String fx:value="Jane Smith" />
-                                        <String fx:value="Mike Johnson (online)" />
-                                        <String fx:value="Sarah Williams" />
-                                        <String fx:value="David Brown" />
-                                    </FXCollections>
-                                </items>
-                            </ListView>
+                            <ListView fx:id="contactsList" style="-fx-background-color: transparent; -fx-border-width: 0;" />
                         </VBox>
 
                         <!-- Requests -->

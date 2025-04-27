@@ -18,7 +18,10 @@ public class FriendDAO {
     // xử lý gửi yêu cầu kết bạn
     public boolean sendFriendRequest(String senderId, String receiverId) throws SQLException{
         try {
-            if (checkFriendStatus(senderId, receiverId) != null) return false;
+            if (checkFriendStatus(senderId, receiverId) != null) {
+                System.err.println("You have made friends with this person");
+                return false;
+            }
 
             String sql = "INSERT INTO Friendships (userID1, userID2, status) VALUES (?,?,'pending')";
 
@@ -55,6 +58,11 @@ public class FriendDAO {
 
     // Kiểm tra trạng thái
     public String checkFriendStatus(String userId1, String userId2) throws SQLException {
+        if (userId1.equals(userId2)) {
+            System.err.println("You are friends with yourself");
+            return "You are friends with yourself";
+        }
+        // Kiểm tra đã có kết bạn chưa
         String sql = "SELECT status FROM Friendships WHERE (userID1=? AND userID2=?) OR (userID1=? AND userID2=?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)){
             stmt.setString(1, userId1);
@@ -107,7 +115,7 @@ public class FriendDAO {
                 "FROM Friendships f " +
                 "JOIN Users u ON f.userID1 = u.userID " +
                 "WHERE f.userID2 = (SELECT userID FROM Users WHERE userID = ?) AND f.status = 'pending'";
-        List<String> ListReceivedRequestsByID = new ArrayList<>();
+        List<String> ListReceivedRequests = new ArrayList<>();
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, currentID); // Thay thế tham số ? bằng email của người dùng
@@ -116,10 +124,32 @@ public class FriendDAO {
             // Duyệt qua kết quả trả về để thêm vào danh sách
             while (rs.next()) {
                 String receiverEmail = rs.getString("email");
-                ListReceivedRequestsByID.add(receiverEmail); // Thêm thông tin (email người nhận) vào danh sách
+                ListReceivedRequests.add(receiverEmail); // Thêm thông tin (email người nhận) vào danh sách
             }
         }
 
-        return ListReceivedRequestsByID; // Trả về danh sách
+        return ListReceivedRequests; // Trả về danh sách
+    }
+
+    // Lấy danh sách bạn
+    public List<String> getFriendsList(String currentID) throws SQLException {
+        String sql = "SELECT u.username " +
+                "FROM Friendships f " +
+                "JOIN Users u ON (f.userID1 = ? AND f.userID2 = u.userID) OR (f.userID2 = ? AND f.userID1 = u.userID) " +
+                "WHERE f.status = 'accepted'";
+        List<String> ListFriendsList = new ArrayList<>();
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setString(1, currentID);
+            stmt.setString(2, currentID);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String username = rs.getString("username");
+                ListFriendsList.add(username);
+            }
+        }
+
+        return ListFriendsList;
     }
 }

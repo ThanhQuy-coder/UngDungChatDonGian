@@ -77,8 +77,9 @@ public class SignInController {
 
                 // Gửi username, currentEmail vào ChatController (nếu cần)
                 ChatController chatController = fxmlLoader.getController();
-                chatController.setUsername(username);
+
                 chatController.setEmail(userDAO.getEmailByUsername(username));
+                chatController.setUsername(username);
 
                 // Đặt giao diện mới
                 stage.setScene(scene);

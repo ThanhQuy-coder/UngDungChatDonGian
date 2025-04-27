@@ -4,19 +4,28 @@ import java.sql.Date;
 
 public class Message {
     private String messageID;
-    private User sender;
-    private User receiver;
-    private String content;
+    private final User sender;
+    private final User receiver;
+    private final String content;
     private Date timestamp;
     private String status;
 
-    public void sendMessage(){
-
+    public Message(User sender, User receiver, String content){
+        this.sender = sender;
+        this.receiver = receiver;
+        this.content = content;
     }
-    public void receiveMessage(){
 
+    public final String getMessageID(){
+        return messageID;
     }
-    public void updateStatus(){
-
+    public final User getSender(){
+        return sender;
+    }
+    public final User getReceiver(){
+        return receiver;
+    }
+    public final String getContent(){
+        return content;
     }
 }
