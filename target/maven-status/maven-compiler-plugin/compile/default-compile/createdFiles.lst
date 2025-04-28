@@ -1,9 +1,13 @@
+com\simplechat\models\User.class
 com\simplechat\database\Database.class
-com\simplechat\models\Message.class
-com\simplechat\controllers\SignUpController.class
+com\simplechat\MainApp.class
 com\simplechat\models\ChatSession.class
 com\simplechat\controllers\ChatController.class
-com\simplechat\models\User.class
-com\simplechat\MainApp.class
+com\simplechat\models\Message.class
+com\simplechat\dao\FriendDAO.class
+com\simplechat\dao\MessageDAO.class
+com\simplechat\dao\ChatSessionDAO.class
 com\simplechat\controllers\SignInController.class
+com\simplechat\controllers\SignUpController.class
 com\simplechat\models\RealTimeService.class
+com\simplechat\dao\UserDAO.class
